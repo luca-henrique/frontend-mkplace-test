@@ -5,9 +5,8 @@ import styled from 'styled-components';
 
 interface IShoppingListItem {
   id: number;
-  title: string;
-  categoryCount: number;
-  itensCount: number;
+  qtdeCategoria: number;
+  qtdeItens: number;
 }
 
 import {ICONS} from '../../../assets';
@@ -16,9 +15,8 @@ const {paper, arrowRight} = ICONS;
 
 export const ShoppingListItem = ({
   id,
-  title,
-  categoryCount,
-  itensCount,
+  qtdeCategoria,
+  qtdeItens,
 }: IShoppingListItem) => {
   return (
     <Container
@@ -46,9 +44,9 @@ export const ShoppingListItem = ({
         </Container>
 
         <Container margin='0px 0px 0px 12px'>
-          <Title>{title}</Title>
+          <Title>Lista {id}</Title>
           <InformationList>
-            {categoryCount} categorias / {itensCount} itens
+            {qtdeCategoria} categorias / {qtdeItens} itens
           </InformationList>
         </Container>
       </Container>

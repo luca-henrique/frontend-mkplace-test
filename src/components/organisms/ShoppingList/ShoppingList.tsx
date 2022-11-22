@@ -1,16 +1,5 @@
 import {ListShoppingService} from '../../../service/ListShoppingService';
 
-interface IShoppingListItem {
-  id: number;
-  title: string;
-  categoryCount: number;
-  itensCount: number;
-}
-
-const data: Array<IShoppingListItem> = [
-  {id: 1, title: 'Lista 1', categoryCount: 1, itensCount: 1},
-];
-
 import {useEffect, useState} from 'react';
 import {ShoppingListItem} from '../../';
 
@@ -18,6 +7,7 @@ const api = new ListShoppingService();
 
 export const ShoppingList = () => {
   const [shoppingListData, setShoppingListData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getList();
@@ -38,16 +28,13 @@ export const ShoppingList = () => {
       });
 
       setShoppingListData(dataList);
+      setLoading(false);
     });
   };
 
-  console.log(shoppingListData);
+  const renderList = shoppingListData.map((shoppingListItem) => (
+    <ShoppingListItem {...shoppingListItem} />
+  ));
 
-  return (
-    <>
-      {data.map((shoppingListItem) => {
-        return <ShoppingListItem {...shoppingListItem} />;
-      })}
-    </>
-  );
+  return <>{!loading && renderList} </>;
 };
