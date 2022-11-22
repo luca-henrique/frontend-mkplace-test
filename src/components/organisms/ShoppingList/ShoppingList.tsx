@@ -14,15 +14,17 @@ const data: Array<IShoppingListItem> = [
 import {useEffect, useState} from 'react';
 import {ShoppingListItem} from '../../';
 
+const api = new ListShoppingService();
+
 export const ShoppingList = () => {
-  const [shoppingListData, setShoppingListData] = useState();
+  const [shoppingListData, setShoppingListData] = useState([]);
 
   useEffect(() => {
     getList();
   }, []);
 
   const getList = () => {
-    ListShoppingService.getList().then((resp) => {
+    api.getList().then((resp) => {
       const dataList = resp.map((elem: any) => {
         let listCategoria = new Array();
         elem.products.forEach((e) => {
@@ -38,6 +40,8 @@ export const ShoppingList = () => {
       setShoppingListData(dataList);
     });
   };
+
+  console.log(shoppingListData);
 
   return (
     <>

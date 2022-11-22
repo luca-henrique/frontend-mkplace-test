@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class ListShoppingService {
-  urlPath: string;
+  private urlPath: string;
 
   constructor() {
     this.urlPath = 'http://localhost:3000/api/list';
