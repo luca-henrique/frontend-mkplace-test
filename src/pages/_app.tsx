@@ -3,6 +3,8 @@ import Head from 'next/head';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+import '../styles/main.scss';
+
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <>
