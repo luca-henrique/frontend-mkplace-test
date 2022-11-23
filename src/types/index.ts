@@ -16,3 +16,8 @@ export interface ShoppingList {
   qtdeCategoria: number;
   qtdeItens: number;
 }
+
+export interface IOption {
+  id: number;
+  title: string;
+}

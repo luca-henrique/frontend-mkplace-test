@@ -1,2 +1,3 @@
 export {ShoppingListItem} from './ShoppingListItem/ShoppingListItem';
 export {CardCreateShoppingList} from './CardCreateShoppingList/CardCreateShoppingList';
+export {Header} from './Header/Header';

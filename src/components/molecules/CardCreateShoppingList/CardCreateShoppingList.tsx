@@ -28,7 +28,7 @@ export const CardCreateShoppingList = () => {
         <Image src={plus} alt='mkplace' />
       </Container>
       <Container margin='0px 0px 0px 12px'>
-        <Title>Criar uma lista de compras</Title>
+        <Title color='red-300'>Criar uma lista de compras</Title>
       </Container>
     </Container>
   );

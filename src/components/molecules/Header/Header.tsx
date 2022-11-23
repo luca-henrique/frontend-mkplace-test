@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {ICONS} from '../../../assets';
 
-import {Title} from '../..';
+import {HeaderTitle} from '../..';
 
 const {arrowLeft} = ICONS;
 
@@ -17,7 +17,7 @@ export const Header = ({routeDescription}: IHeader) => {
         <Image src={arrowLeft} alt='Voltar' />
       </Link>
 
-      <Title style={{marginLeft: '16px'}}>{routeDescription}</Title>
+      <HeaderTitle style={{marginLeft: '16px'}}>{routeDescription}</HeaderTitle>
     </header>
   );
 };

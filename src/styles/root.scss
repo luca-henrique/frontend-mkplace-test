@@ -59,7 +59,7 @@ $border-size: 10px;
 
 .btn-primary {
   border-radius: 10px;
-  width: 300px;
+  width: 100%;
   background-color: $color-red;
   font-family: $font-primary;
   font-size: 14px;
@@ -103,6 +103,10 @@ hr {
   border: 1px solid $color-grey;
   border-radius: $border-size;
   padding: 12px 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 21px;
 }
 
 .input-qtde {
@@ -113,6 +117,11 @@ hr {
   border: 1px solid $color-grey;
   border-radius: $border-size;
   padding: 12px 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 21px;
 
   select {
     color: $color-smoke-white;
