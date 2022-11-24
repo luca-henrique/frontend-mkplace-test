@@ -16,7 +16,7 @@ export const initialValue = {
 
 type IFile = string | null | ArrayBuffer;
 
-interface IState {
+export interface IState {
   list: ShoppingList;
   setList: (lista: ShoppingList) => void;
   file: IFile;

@@ -13,7 +13,7 @@ import {useRouter} from 'next/router';
 
 import {useInformationProduct} from '../../../hook/useInformationProduct';
 import {ContextApp} from '../../../store/ContextApp';
-import {Product} from '../../../types';
+import {IProduct, ShoppingList} from '../../../types';
 
 export default function CreateShoppingList() {
   const [categoryTitle, setCategoryTitle] = useState(String);
@@ -27,16 +27,14 @@ export default function CreateShoppingList() {
 
   const router = useRouter();
 
-  const {listCategory, listProducts, listSubCategory, loading} =
-    useInformationProduct();
+  const {listCategory, listProducts, listSubCategory} = useInformationProduct();
 
-  const getQtdeCategorys = (listProducts: Array<Product>) => {
+  const getQtdeCategorys = (products: IProduct[]) => {
     let arrayCategorys = new Array();
-    listProducts.forEach((e) => {
+    products.forEach((e) => {
       if (!arrayCategorys.includes(e.categoryTitle))
         arrayCategorys.push(e.categoryTitle);
     });
-
     return arrayCategorys;
   };
 
@@ -50,11 +48,12 @@ export default function CreateShoppingList() {
     setFile(null);
   };
 
-  const onSubmitItem = (event) => {
+  const onSubmitItem = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    let arrayProducts = list.products;
-    arrayProducts.push({
+    //@ts-ignore
+    let arrayProducts: IProduct[] = list?.products;
+    arrayProducts?.push({
       categoryTitle: categoryTitle,
       name: name,
       type: type,
@@ -65,11 +64,11 @@ export default function CreateShoppingList() {
 
     const arrayCategorys = getQtdeCategorys(arrayProducts);
 
-    let dataForm = {
+    let dataForm: ShoppingList = {
       ...list,
       products: arrayProducts,
       qtdeCategoria: arrayCategorys.length,
-      qtdeItens: arrayProducts.length,
+      qtdeItens: arrayProducts?.length,
     };
 
     setList(dataForm);
@@ -134,7 +133,6 @@ export default function CreateShoppingList() {
         </div>
 
         <div className='d-flex flex-column col-5'>
-          {/*TODO: ajustar espaçamentos internos do input*/}
           <PriceInput value={price} setValue={setPrice} />
         </div>
       </div>
@@ -148,9 +146,6 @@ export default function CreateShoppingList() {
       <button className='btn-primary' type='submit'>
         Adicionar Item
       </button>
-
-      <div className='mt-5' />
-      <div className='mt-3' />
     </form>
   );
 }

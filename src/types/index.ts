@@ -2,23 +2,24 @@ export interface TypeProduct {
   type: string;
 }
 
-export interface Product {
+export interface IProduct {
   categoryTitle: string;
   name: string;
   quantity: number;
-  type: TypeProduct;
+  type: string;
   price: number;
   imageUrl: string | ArrayBuffer | null;
 }
 
 export interface ShoppingList {
-  id: number;
-  products?: Product[];
-  qtdeCategoria: number;
-  qtdeItens: number;
+  id?: number;
+  products?: IProduct[];
+  qtdeCategoria?: number;
+  qtdeItens?: number;
 }
 
 export interface IOption {
   id: number;
-  title: string;
+  title?: string;
+  name?: string;
 }
