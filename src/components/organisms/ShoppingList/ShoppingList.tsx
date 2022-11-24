@@ -32,8 +32,10 @@ export const ShoppingList = () => {
     });
   };
 
-  const renderList = shoppingListData.map((shoppingListItem) => (
-    <ShoppingListItem {...shoppingListItem} />
+  const renderList = shoppingListData.map((shoppingListItem, index) => (
+    <div key={index}>
+      <ShoppingListItem {...shoppingListItem} />
+    </div>
   ));
 
   return <>{!loading && renderList} </>;
