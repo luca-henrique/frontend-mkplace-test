@@ -8,6 +8,7 @@ export interface Product {
   quantity: number;
   type: TypeProduct;
   price: number;
+  imageUrl: string | ArrayBuffer | null;
 }
 
 export interface ShoppingList {

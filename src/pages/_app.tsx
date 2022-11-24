@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/main.scss';
 import React from 'react';
 
-import {wrapper} from '../store/store';
+import {AppProvider} from '../store/ContextApp';
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
@@ -19,9 +19,11 @@ function MyApp({Component, pageProps}: AppProps) {
           content='width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0'
         />
       </Head>
-      <Component {...pageProps} />
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {
   Header,
   Upload,
@@ -12,30 +12,71 @@ import {
 import {useRouter} from 'next/router';
 
 import {useInformationProduct} from '../../../hook/useInformationProduct';
-import {selectAuthState, setAuthState} from '../../../store/authSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import {ContextApp} from '../../../store/ContextApp';
+import {Product} from '../../../types';
 
 export default function CreateShoppingList() {
   const [categoryTitle, setCategoryTitle] = useState(String);
   const [subCategory, setSubCategory] = useState(String);
   const [name, setName] = useState(String);
   const [type, setType] = useState('unit');
-  const [price, setPrice] = useState(String);
+  const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const router = useRouter();
-  const authState = useSelector(selectAuthState);
-  const dispatch = useDispatch();
+  const {file, setFile, list, setList} = useContext(ContextApp);
 
-  console.log(authState);
+  const router = useRouter();
 
   const {listCategory, listProducts, listSubCategory, loading} =
     useInformationProduct();
 
+  const getQtdeCategorys = (listProducts: Array<Product>) => {
+    let arrayCategorys = new Array();
+    listProducts.forEach((e) => {
+      if (!arrayCategorys.includes(e.categoryTitle))
+        arrayCategorys.push(e.categoryTitle);
+    });
+
+    return arrayCategorys;
+  };
+
+  const clearForm = () => {
+    setCategoryTitle('');
+    setSubCategory('');
+    setName('');
+    setType('unit');
+    setPrice(0);
+    setQuantity(1);
+    setFile(null);
+  };
+
   const onSubmitItem = (event) => {
     event.preventDefault();
 
+    let arrayProducts = list.products;
+    arrayProducts.push({
+      categoryTitle: categoryTitle,
+      name: name,
+      type: type,
+      price: price,
+      quantity: quantity,
+      imageUrl: file,
+    });
+
+    const arrayCategorys = getQtdeCategorys(arrayProducts);
+
+    let dataForm = {
+      ...list,
+      products: arrayProducts,
+      qtdeCategoria: arrayCategorys.length,
+      qtdeItens: arrayProducts.length,
+    };
+
+    setList(dataForm);
+
     router.push('/lista');
+
+    clearForm();
   };
 
   return (
@@ -78,8 +119,8 @@ export default function CreateShoppingList() {
         setOption={setType}
         /*TODO: adicionar mock*/
         options={[
-          {id: 1, title: 'KG'},
-          {id: 1, title: 'Un'},
+          {id: 1, title: 'kg'},
+          {id: 1, title: 'unit'},
         ]}
         optionMessageDefault='Selecione a unidade do produto'
         title='Tipo'

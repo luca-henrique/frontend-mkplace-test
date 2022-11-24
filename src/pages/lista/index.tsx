@@ -1,16 +1,95 @@
-import React from 'react';
-import {Container, Header, Title, InformationList} from '../../components';
+import React, {useContext, useState} from 'react';
+import {
+  Container,
+  Header,
+  Title,
+  InformationList,
+  Separator,
+} from '../../components';
 
 import Image from 'next/image';
 
 import {ICONS} from '../../assets';
 import styled from 'styled-components';
+import {ToastContainer, toast} from 'react-toastify';
 
 const {paper} = ICONS;
 
+import {Product} from '../../types';
+
+import {ListShoppingService} from '../../service/ListShoppingService';
+import {useRouter} from 'next/router';
+import {ContextApp, initialValue} from '../../store/ContextApp';
+import {ProductItem} from '../../components/molecules/ProductItem/ProductItem';
+import {ProductList} from '../../components/organisms/ProductList/ProductList';
+
+export {initialValue} from '../../store/ContextApp';
+
+const shoppingListService = new ListShoppingService();
+
 export default function ShoppingList() {
+  const router = useRouter();
+
+  const {list, setList} = useContext(ContextApp);
+
+  const onSubmitSaveList = (event) => {
+    event.preventDefault();
+
+    const data = {products: list.products};
+    shoppingListService
+      .postList(data)
+      .then((response) => {
+        toast.success('Salvo com sucesso !', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        router.push('/');
+      })
+      .catch(() => {
+        toast.error('Ocorreu algo de errado ! :(', {
+          position: 'bottom-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
+
+  const getQtdeCategorys = (listProducts: Array<Product>) => {
+    let arrayCategorys = new Array();
+    listProducts.forEach((e) => {
+      if (!arrayCategorys.includes(e.categoryTitle))
+        arrayCategorys.push(e.categoryTitle);
+    });
+
+    return arrayCategorys;
+  };
+
+  const removeItem = (idx: number) => {
+    let arrayProducts = list.products;
+    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
+    const arrayCategorys = getQtdeCategorys(arrayProducts);
+
+    let dataForm = {
+      ...list,
+      products: arrayProducts,
+      qtdeCategoria: arrayCategorys.length,
+    };
+    setList(dataForm);
+  };
+
   return (
-    <div
+    <form
+      onSubmit={onSubmitSaveList}
       className='d-flex flex-column h-100 overflow-auto'
       style={{padding: '24px 16px'}}
     >
@@ -40,15 +119,12 @@ export default function ShoppingList() {
 
           <Container margin='0px 0px 0px 12px'>
             <Title>Lista</Title>
-            <InformationList>2 categorias / 2 itens</InformationList>
+            <InformationList>
+              {list.qtdeCategoria} categorias / {list.qtdeItens} itens
+            </InformationList>
           </Container>
         </Container>
-        <div
-          style={{
-            margin: '8px 0',
-            border: '1px solid #CFDBD5',
-          }}
-        />
+        <Separator />
 
         <ProductList />
       </div>
@@ -56,75 +132,18 @@ export default function ShoppingList() {
       <div className='mt-3' />
 
       <div>
-        <button className='btn-secondary'>Adicionar novo item</button>
+        <button
+          className='btn-secondary'
+          onClick={() => router.push('/lista/criar')}
+        >
+          Adicionar novo item
+        </button>
 
         <div className='mt-3' />
 
         <button className='btn-primary'>Concluir lista</button>
       </div>
-    </div>
+      <ToastContainer />
+    </form>
   );
 }
-
-const ProductList = () => {
-  return (
-    <div style={{display: 'flex', flexDirection: 'column'}}>
-      {[1, 2, 3, 4, 5].map(() => {
-        return <Product />;
-      })}
-    </div>
-  );
-};
-
-const Product = () => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <Container
-          alignItems='center'
-          justifyContent='center'
-          height='32px'
-          width='32px'
-        >
-          <Image src={paper} alt='mkplace' />
-        </Container>
-
-        <ProductName>Milho Verde</ProductName>
-      </div>
-
-      <ProductInformation>R$0,00 / Un</ProductInformation>
-    </div>
-  );
-};
-
-const ProductName = styled.label`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-  margin-left: 16px;
-`;
-
-const ProductInformation = styled.label`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  color: #5d5d5b;
-`;

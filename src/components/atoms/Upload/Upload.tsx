@@ -1,12 +1,13 @@
 import {CloudArrowUp, File} from 'phosphor-react';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+import {ContextApp} from '../../../store/ContextApp';
 
 interface IUpload {
   accept: string;
 }
 
 export const Upload = (props: IUpload) => {
-  const [file, setFile] = useState<null | string | ArrayBuffer>();
+  const {file, setFile} = useContext(ContextApp);
   const [fileName, setFileName] = useState<string | null>(null);
 
   const getImgUrl = async (img: File) => {
