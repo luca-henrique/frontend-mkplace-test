@@ -14,9 +14,11 @@ export const PriceInput = ({value, setValue}: ICountInput) => {
         value={value}
         onChange={(evt) => setValue(evt.target.value)}
         onBlur={() => {
-          let vl = 'R$ ' + Number(value.replace(',', '.')).toFixed(2);
-          vl = vl.replace('.', ',');
-          setValue(vl);
+          if (parseInt(value) > 0) {
+            let vl = 'R$ ' + Number(value.replace(',', '.')).toFixed(2);
+            vl = vl.replace('.', ',');
+            setValue(vl);
+          }
         }}
       />
     </>
