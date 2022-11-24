@@ -6,12 +6,12 @@ import {
   CustomInput,
   CountInput,
   PriceInput,
-} from '../../components';
+} from '../../../components';
 
-import {CategoryService} from '../../service/CategoryService';
-import {ProductService} from '../../service/ProductService';
+import {CategoryService} from '../../../service/CategoryService';
+import {ProductService} from '../../../service/ProductService';
 
-import {IOption} from '../../types';
+import {IOption} from '../../../types';
 
 export default function CreateShoppingList() {
   const [listCategory, setListCategory] = useState<IOption[]>([]);
@@ -51,7 +51,10 @@ export default function CreateShoppingList() {
   }, []);
 
   return (
-    <div className='d-flex flex-column h-100' style={{padding: '24px 16px'}}>
+    <div
+      className='d-flex flex-column h-100 overflow-auto'
+      style={{padding: '24px 16px'}}
+    >
       <Header routeDescription='Criando Lista' />
 
       <div className='mt-4' />
@@ -82,8 +85,8 @@ export default function CreateShoppingList() {
       <div className='mt-3' />
 
       <SelectInput
-        option={categoryTitle}
-        setOption={setCategoryTitle}
+        option={type}
+        setOption={setType}
         /*TODO: adicionar mock*/
         options={[
           {id: 1, title: 'KG'},
@@ -99,14 +102,23 @@ export default function CreateShoppingList() {
         <div className='d-flex flex-column col-5'>
           <CountInput value={quantity} setValue={setQuantity} />
         </div>
+
         <div className='d-flex flex-column col-5'>
+          {/*TODO: ajustar espaçamentos internos do input*/}
           <PriceInput value={price} setValue={setPrice} />
         </div>
       </div>
 
+      <div className='mt-3' />
+
       <Upload accept='.png,.jpg,.jpeg' />
 
+      <div className='mt-3' />
+
       <button className='btn-primary'>Adicionar Item</button>
+
+      <div className='mt-5' />
+      <div className='mt-3' />
     </div>
   );
 }
