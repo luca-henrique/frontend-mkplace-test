@@ -5,9 +5,15 @@ import {
   ProductNameList,
   QuantityProduct,
 } from '..';
+import {Checkbox} from '../CheckBox/CheckBox';
 
 export const ShoppintItem = () => {
   const [quantity, setQuantity] = useState(1);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = (event: any) => {
+    setChecked(event.target.checked);
+  };
 
   return (
     <Container
@@ -17,27 +23,12 @@ export const ShoppintItem = () => {
       margin='0px 0px 8px 0px'
     >
       <Container direction='row'>
-        <input
-          type='checkbox'
-          id='vehicle1'
-          name='vehicle1'
-          value='Bike'
-          style={{
-            height: '24px',
-            width: '24px',
-            borderRadius: '4px',
-            background: '#EBF0F0',
-          }}
+        <Checkbox
+          label='value'
+          value={checked}
+          checked={checked}
+          onChange={({target}) => setChecked(!checked)}
         />
-        <div
-          style={{
-            maxWidth: '118px',
-          }}
-        >
-          <ProductNameList htmlFor='vehicle1' style={{marginLeft: '16px'}}>
-            Feijão Tropeiro
-          </ProductNameList>
-        </div>
       </Container>
 
       <Container direction='row' alignItems='center'>

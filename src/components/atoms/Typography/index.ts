@@ -24,7 +24,7 @@ export const Title = styled.h1<ITitle>`
   color: ${({color}) => (color ? COLORS[color] : '#000')};
 `;
 
-export const ProductNameList = styled.h1<ITitle>`
+export const ProductNameList = styled.h2<ITitle>`
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
@@ -36,7 +36,7 @@ export const ProductNameList = styled.h1<ITitle>`
   text-overflow: ellipsis;
 `;
 
-export const InformationList = styled.h1`
+export const InformationList = styled.h3`
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
