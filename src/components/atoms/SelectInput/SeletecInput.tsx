@@ -26,8 +26,8 @@ export const SelectInput = ({
           onChange={(evt) => setOption(evt.target.value)}
         >
           <option value=''>{optionMessageDefault}</option>
-          {options.map((elem) => (
-            <option key={`category-${elem.id}`} value={elem.title}>
+          {options.map((elem, index) => (
+            <option key={`${elem.title}-${elem.id}`} value={elem.title}>
               {elem.title}
             </option>
           ))}

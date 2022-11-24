@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {
   Header,
   Upload,
@@ -6,18 +6,16 @@ import {
   CustomInput,
   CountInput,
   PriceInput,
+  Separator,
 } from '../../../components';
 
-import {CategoryService} from '../../../service/CategoryService';
-import {ProductService} from '../../../service/ProductService';
+import {useRouter} from 'next/router';
 
-import {IOption} from '../../../types';
+import {useInformationProduct} from '../../../hook/useInformationProduct';
+import {selectAuthState, setAuthState} from '../../../store/authSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function CreateShoppingList() {
-  const [listCategory, setListCategory] = useState<IOption[]>([]);
-  const [listSubCategory, setListSubCategory] = useState<IOption[]>([]);
-  const [listProducts, setListProducts] = useState<IOption[]>([]);
-
   const [categoryTitle, setCategoryTitle] = useState(String);
   const [subCategory, setSubCategory] = useState(String);
   const [name, setName] = useState(String);
@@ -25,35 +23,26 @@ export default function CreateShoppingList() {
   const [price, setPrice] = useState(String);
   const [quantity, setQuantity] = useState(1);
 
-  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const authState = useSelector(selectAuthState);
+  const dispatch = useDispatch();
 
-  const getAllSelects = () => {
-    const categoriesService = new CategoryService();
-    const productService = new ProductService();
+  console.log(authState);
 
-    const requestCategory = categoriesService.getCategoty();
-    const requestSubCategory = categoriesService.getSubCategoty();
-    const requestProducts = productService.getProduct();
+  const {listCategory, listProducts, listSubCategory, loading} =
+    useInformationProduct();
 
-    Promise.all([requestCategory, requestSubCategory, requestProducts]).then(
-      (response) => {
-        console.log(response[0]);
-        setListCategory(response[0]);
-        setListSubCategory(response[1]);
-        setListProducts(response[2]);
-      },
-    );
-    setLoading(false);
+  const onSubmitItem = (event) => {
+    event.preventDefault();
+
+    router.push('/lista');
   };
 
-  useEffect(() => {
-    getAllSelects();
-  }, []);
-
   return (
-    <div
+    <form
       className='d-flex flex-column h-100 overflow-auto'
       style={{padding: '24px 16px'}}
+      onSubmit={onSubmitItem}
     >
       <Header routeDescription='Criando Lista' />
 
@@ -77,12 +66,12 @@ export default function CreateShoppingList() {
         title='Selecione uma subcategoria do produto'
       />
 
-      <div className='mt-3' />
+      <Separator />
 
       {/*TODO: fazer ajuste do type*/}
       <CustomInput value={name} setValue={setName} options={listProducts} />
 
-      <div className='mt-3' />
+      <Separator />
 
       <SelectInput
         option={type}
@@ -90,7 +79,7 @@ export default function CreateShoppingList() {
         /*TODO: adicionar mock*/
         options={[
           {id: 1, title: 'KG'},
-          {id: 1, title: 'Unidade'},
+          {id: 1, title: 'Un'},
         ]}
         optionMessageDefault='Selecione a unidade do produto'
         title='Tipo'
@@ -115,10 +104,12 @@ export default function CreateShoppingList() {
 
       <div className='mt-3' />
 
-      <button className='btn-primary'>Adicionar Item</button>
+      <button className='btn-primary' type='submit'>
+        Adicionar Item
+      </button>
 
       <div className='mt-5' />
       <div className='mt-3' />
-    </div>
+    </form>
   );
 }

@@ -8,3 +8,4 @@ export {PriceInput} from './PriceInput/PriceInput';
 
 export {QuantityProduct} from './QuantityProduct/QuantityProduct';
 export {ShoppintItem} from './ShoppingItem/ShoppingItem';
+export {Separator} from './Separator/Separator';
