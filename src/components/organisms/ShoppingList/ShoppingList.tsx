@@ -1,9 +1,4 @@
-import {ListShoppingService} from '../../../service/ListShoppingService';
-
-import {useEffect, useState} from 'react';
 import {ShoppingListItem} from '../../';
-
-const api = new ListShoppingService();
 
 import {useShoppingListData} from '../../../hook/useShoppingListData';
 
