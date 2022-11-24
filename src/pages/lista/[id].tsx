@@ -5,6 +5,7 @@ import {
   InformationList,
   Title,
   CategoryProductList,
+  Separator,
 } from '../../components';
 
 import Image from 'next/image';
@@ -13,28 +14,27 @@ import {ICONS} from '../../assets';
 import {ContextApp} from '../../store/ContextApp';
 
 import {ListShoppingService} from '../../service/ListShoppingService';
+import {useRouter} from 'next/router';
 
 const shoppingListService = new ListShoppingService();
 
 const {paper} = ICONS;
 
 export default function ShoppingListInfo() {
-  const id = 1212;
-  const {list, setList} = useContext(ContextApp);
-
   const [total, setTotal] = useState<String | Number>('0,00');
   const [listCategory, setListCategory] = useState<Array<String>>([]);
 
-  const getList = async () => {
-    if (!list.id) {
-      let urlParams = new URLSearchParams(window.location.search);
-      let listId = urlParams.get('listId');
+  const {list, setList} = useContext(ContextApp);
 
-      await shoppingListService.getList({id: listId}).then(async (response) => {
-        let data = response.find((elem: any) => elem.id == listId);
-        await setList(data);
-      });
-    }
+  const router = useRouter();
+  const {id}: any = router.query;
+
+  const getList = async () => {
+    //@ts-ignore
+    await shoppingListService.getList({id}).then(async (response) => {
+      let data = response.find((elem: any) => elem.id == id);
+      setList(data);
+    });
   };
 
   const calcSoma = () => {
@@ -60,14 +60,16 @@ export default function ShoppingListInfo() {
     getList();
     calcSoma();
     getQtdeCategorys();
-  }, [list]);
+  }, []);
+
+  const formatText = `R$${total}`;
 
   return (
     <div
       className='d-flex flex-column h-100 overflow-auto'
       style={{padding: '24px 16px'}}
     >
-      <Header routeDescription={`Lista ${id}`} />
+      <Header routeDescription={`Lista ${list.id}`} />
 
       <div className='mt-3' />
 
@@ -86,22 +88,20 @@ export default function ShoppingListInfo() {
 
         <Container margin='0px 0px 0px 12px'>
           <Title>Lista</Title>
-          <InformationList>2 categorias / 2 itens</InformationList>
+          <InformationList>
+            {listCategory.length} categorias / {list?.products?.length} itens
+          </InformationList>
         </Container>
       </Container>
       <div className='mt-3' />
 
       <Container direction='row' justifyContent='space-between'>
         <Title>Total do carrinho</Title>
-        <Title>R$102,58</Title>
+
+        <Title>{formatText}</Title>
       </Container>
 
-      <div
-        style={{
-          marginTop: '8px',
-          border: '1px solid #CFDBD5',
-        }}
-      />
+      <Separator />
 
       <CategoryProductList />
     </div>

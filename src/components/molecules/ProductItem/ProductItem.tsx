@@ -15,7 +15,13 @@ interface IProductItem {
   type: string;
 }
 
-export const ProductItem = ({imageUrl, name, price, type}: IProductItem) => {
+interface IProductObj {
+  item: IProductItem;
+}
+
+export const ProductItem = ({item}: IProductObj) => {
+  const {imageUrl, name, price, type} = item;
+
   return (
     <div
       style={{

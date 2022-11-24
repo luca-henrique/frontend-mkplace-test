@@ -85,9 +85,7 @@ export default function CreateShoppingList() {
       onSubmit={onSubmitItem}
     >
       <Header routeDescription='Criando Lista' />
-
       <div className='mt-4' />
-
       <SelectInput
         option={categoryTitle}
         setOption={setCategoryTitle}
@@ -95,9 +93,7 @@ export default function CreateShoppingList() {
         optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
         title='Selecione categoria do produto'
       />
-
       <div className='mt-3' />
-
       <SelectInput
         option={subCategory}
         setOption={setSubCategory}
@@ -105,14 +101,13 @@ export default function CreateShoppingList() {
         optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
         title='Selecione uma subcategoria do produto'
       />
+      <Separator />
+      {
+        //@ts-ignore
+        <CustomInput value={name} setValue={setName} options={listProducts} />
+      }
 
       <Separator />
-
-      {/*TODO: fazer ajuste do type*/}
-      <CustomInput value={name} setValue={setName} options={listProducts} />
-
-      <Separator />
-
       <SelectInput
         option={type}
         setOption={setType}
@@ -124,25 +119,22 @@ export default function CreateShoppingList() {
         optionMessageDefault='Selecione a unidade do produto'
         title='Tipo'
       />
-
       <div className='mt-3' />
-
       <div className='d-flex flex-row col-12 justify-content-between'>
         <div className='d-flex flex-column col-5'>
           <CountInput value={quantity} setValue={setQuantity} />
         </div>
 
         <div className='d-flex flex-column col-5'>
-          <PriceInput value={price} setValue={setPrice} />
+          {
+            //@ts-ignore
+            <PriceInput value={price} setValue={setPrice} />
+          }
         </div>
       </div>
-
       <div className='mt-3' />
-
       <Upload accept='.png,.jpg,.jpeg' />
-
       <div className='mt-3' />
-
       <button className='btn-primary' type='submit'>
         Adicionar Item
       </button>

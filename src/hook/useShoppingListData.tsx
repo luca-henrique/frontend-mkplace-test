@@ -16,7 +16,7 @@ export const useShoppingListData = () => {
     shoppingListService.getList().then((resp) => {
       const dataList = resp.map((elem: any) => {
         let listCategoria = new Array();
-        elem.products.forEach((e) => {
+        elem.products.forEach((e: any) => {
           if (!listCategoria.includes(e.categoryTitle))
             listCategoria.push(e.categoryTitle);
         });

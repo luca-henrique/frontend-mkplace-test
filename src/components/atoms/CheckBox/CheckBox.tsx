@@ -13,14 +13,15 @@ export function Checkbox({
   disabled,
 }: any) {
   return (
-    <Label htmlFor={id} disabled={disabled}>
+    //@ts-ignore
+    <Label htmlFor={id}>
       <div
         style={{
           maxWidth: '118px',
           marginLeft: '26px',
         }}
       >
-        <ProductNameList htmlFor='vehicle1' style={{marginLeft: '16px'}}>
+        <ProductNameList style={{marginLeft: '16px'}}>
           Feijão Tropeiro
         </ProductNameList>
       </div>

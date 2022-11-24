@@ -1,5 +1,9 @@
 import styled, {keyframes} from 'styled-components';
 
+interface IInput {
+  disabled: boolean;
+}
+
 export const Input = styled.input`
   height: 0;
   width: 0;
@@ -7,7 +11,7 @@ export const Input = styled.input`
   z-index: -1;
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<IInput>`
   height: 24px;
   position: relative;
   display: inline-block;

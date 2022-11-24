@@ -1,4 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
+import Image from 'next/image';
+import {ToastContainer, toast} from 'react-toastify';
+
 import {
   Container,
   Header,
@@ -7,32 +10,21 @@ import {
   Separator,
 } from '../../components';
 
-import Image from 'next/image';
-
 import {ICONS} from '../../assets';
-import styled from 'styled-components';
-import {ToastContainer, toast} from 'react-toastify';
+import {useRouter} from 'next/router';
+import {ContextApp} from '../../store/ContextApp';
+import {ProductList} from '../../components/organisms/ProductList/ProductList';
+import {ListShoppingService} from '../../service/ListShoppingService';
 
 const {paper} = ICONS;
-
-import {Product} from '../../types';
-
-import {ListShoppingService} from '../../service/ListShoppingService';
-import {useRouter} from 'next/router';
-import {ContextApp, initialValue} from '../../store/ContextApp';
-import {ProductItem} from '../../components/molecules/ProductItem/ProductItem';
-import {ProductList} from '../../components/organisms/ProductList/ProductList';
-
-export {initialValue} from '../../store/ContextApp';
-
 const shoppingListService = new ListShoppingService();
 
 export default function ShoppingList() {
   const router = useRouter();
 
-  const {list, setList} = useContext(ContextApp);
+  const {list} = useContext(ContextApp);
 
-  const onSubmitSaveList = (event) => {
+  const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     const data = {products: list.products};
@@ -62,29 +54,6 @@ export default function ShoppingList() {
           progress: undefined,
         });
       });
-  };
-
-  const getQtdeCategorys = (listProducts: Array<Product>) => {
-    let arrayCategorys = new Array();
-    listProducts.forEach((e) => {
-      if (!arrayCategorys.includes(e.categoryTitle))
-        arrayCategorys.push(e.categoryTitle);
-    });
-
-    return arrayCategorys;
-  };
-
-  const removeItem = (idx: number) => {
-    let arrayProducts = list.products;
-    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
-    const arrayCategorys = getQtdeCategorys(arrayProducts);
-
-    let dataForm = {
-      ...list,
-      products: arrayProducts,
-      qtdeCategoria: arrayCategorys.length,
-    };
-    setList(dataForm);
   };
 
   return (
@@ -141,7 +110,9 @@ export default function ShoppingList() {
 
         <div className='mt-3' />
 
-        <button className='btn-primary'>Concluir lista</button>
+        <button className='btn-primary' type='submit'>
+          Concluir lista
+        </button>
       </div>
       <ToastContainer />
     </form>

@@ -6,7 +6,8 @@ export const ShoppingList = () => {
   const {data, loading} = useShoppingListData();
 
   const renderList = data.map((shoppingListItem, index) => (
-    <ShoppingListItem {...shoppingListItem} key={index} />
+    //@ts-ignore
+    <ShoppingListItem key={index} {...shoppingListItem} />
   ));
 
   return <>{!loading && renderList} </>;
