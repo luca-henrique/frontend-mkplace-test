@@ -1,4 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
+import {cors, runMiddleware} from './cors';
 
 type Data = {
   id: number;
@@ -6,10 +7,12 @@ type Data = {
   title: string;
 }[];
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data | undefined>,
 ) {
+  await runMiddleware(req, res, cors);
+
   if (req.method === 'GET') {
     const data: Data = [
       {

@@ -1,6 +1,8 @@
 import {IncomingForm} from 'formidable';
 import type {NextApiRequest, NextApiResponse} from 'next';
+
 import fs from 'fs';
+import {cors, runMiddleware} from './cors';
 
 type Data = {
   url: string;
@@ -16,6 +18,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data | {message: string}>,
 ) {
+  await runMiddleware(req, res, cors);
   try {
     if (req.method === 'POST') {
       const {files} = await new Promise((resolve, reject) => {
