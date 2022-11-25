@@ -13,6 +13,7 @@ interface IProductItem {
   name: string;
   price: string | number;
   type: string;
+  key?: number;
 }
 
 interface IProductObj {

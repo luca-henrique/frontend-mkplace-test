@@ -108,6 +108,14 @@ export default function CreateShoppingList() {
       }
 
       <Separator />
+
+      {
+        //@ts-ignore
+        <CustomInput value={name} setValue={setName} options={listProducts} />
+      }
+
+      <Separator />
+
       <SelectInput
         option={type}
         setOption={setType}

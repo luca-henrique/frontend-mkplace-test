@@ -13,7 +13,6 @@ export function Checkbox({
   disabled,
 }: any) {
   return (
-    //@ts-ignore
     <Label htmlFor={id}>
       <div
         style={{

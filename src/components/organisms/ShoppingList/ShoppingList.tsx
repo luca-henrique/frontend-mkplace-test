@@ -4,10 +4,9 @@ import {useShoppingListData} from '../../../hook/useShoppingListData';
 
 export const ShoppingList = () => {
   const {data, loading} = useShoppingListData();
-
+  //@ts-ignore
   const renderList = data.map((shoppingListItem, index) => (
-    //@ts-ignore
-    <ShoppingListItem key={index} {...shoppingListItem} />
+    <ShoppingListItem key={index} item={shoppingListItem} />
   ));
 
   return <>{!loading && renderList} </>;

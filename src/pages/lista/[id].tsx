@@ -21,10 +21,10 @@ const shoppingListService = new ListShoppingService();
 const {paper} = ICONS;
 
 export default function ShoppingListInfo() {
+  const {list, setList} = useContext(ContextApp);
+
   const [total, setTotal] = useState<String | Number>('0,00');
   const [listCategory, setListCategory] = useState<Array<String>>([]);
-
-  const {list, setList} = useContext(ContextApp);
 
   const router = useRouter();
   const {id}: any = router.query;
@@ -97,7 +97,6 @@ export default function ShoppingListInfo() {
 
       <Container direction='row' justifyContent='space-between'>
         <Title>Total do carrinho</Title>
-
         <Title>{formatText}</Title>
       </Container>
 

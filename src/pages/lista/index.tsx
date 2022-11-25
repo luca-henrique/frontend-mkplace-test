@@ -15,6 +15,7 @@ import {useRouter} from 'next/router';
 import {ContextApp} from '../../store/ContextApp';
 import {ProductList} from '../../components/organisms/ProductList/ProductList';
 import {ListShoppingService} from '../../service/ListShoppingService';
+import {IProduct} from '../../types';
 
 const {paper} = ICONS;
 const shoppingListService = new ListShoppingService();
@@ -22,7 +23,7 @@ const shoppingListService = new ListShoppingService();
 export default function ShoppingList() {
   const router = useRouter();
 
-  const {list} = useContext(ContextApp);
+  const {list, setList} = useContext(ContextApp);
 
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -54,6 +55,31 @@ export default function ShoppingList() {
           progress: undefined,
         });
       });
+  };
+
+  const getQtdeCategorys = (listProducts: Array<IProduct>) => {
+    let arrayCategorys = new Array();
+    listProducts.forEach((e) => {
+      if (!arrayCategorys.includes(e.categoryTitle))
+        arrayCategorys.push(e.categoryTitle);
+    });
+
+    return arrayCategorys;
+  };
+
+  const removeItem = (idx: number) => {
+    let arrayProducts = list.products;
+    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
+
+    //@ts-ignore
+    const arrayCategorys = getQtdeCategorys(arrayProducts);
+
+    let dataForm = {
+      ...list,
+      products: arrayProducts,
+      qtdeCategoria: arrayCategorys.length,
+    };
+    setList(dataForm);
   };
 
   return (

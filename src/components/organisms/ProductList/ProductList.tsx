@@ -9,8 +9,9 @@ export const ProductList = () => {
 
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      {products?.map((productItem: any, index) => {
-        return <ProductItem key={index} item={productItem} />;
+      {products?.map((productItem, index) => {
+        //@ts-ignore
+        return <ProductItem key={index} {...productItem} />;
       })}
     </div>
   );
