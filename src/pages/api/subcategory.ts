@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from 'next';
 
 type Data = {
   id: number;
@@ -8,179 +8,179 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data | undefined>
+  res: NextApiResponse<Data | undefined>,
 ) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const data: Data = [
       {
         id: 1,
         categoryId: 2,
-        title: "Super Ofertas",
+        title: 'Super Ofertas',
       },
       {
         id: 2,
         categoryId: 2,
-        title: "Importados",
+        title: 'Importados',
       },
       {
         id: 3,
         categoryId: 2,
-        title: "Novidades",
+        title: 'Novidades',
       },
       {
         id: 4,
         categoryId: 2,
-        title: "Mundo Saudável",
+        title: 'Mundo Saudável',
       },
       {
         id: 5,
         categoryId: 2,
-        title: "Receitas Exclusivas",
+        title: 'Receitas Exclusivas',
       },
       {
         id: 6,
         categoryId: 1,
-        title: "Adega",
+        title: 'Adega',
       },
       {
         id: 7,
         categoryId: 1,
-        title: "Biscoitos e Snacks",
+        title: 'Biscoitos e Snacks',
       },
       {
         id: 8,
         categoryId: 1,
-        title: "Bomboniere",
+        title: 'Bomboniere',
       },
       {
         id: 9,
         categoryId: 1,
-        title: "Carnes, Aves e Peixes",
+        title: 'Carnes, Aves e Peixes',
       },
       {
         id: 10,
         categoryId: 1,
-        title: "Mercearia",
+        title: 'Mercearia',
       },
       {
         id: 11,
         categoryId: 1,
-        title: "Molhos e Condimentos",
+        title: 'Molhos e Condimentos',
       },
       {
         id: 12,
         categoryId: 1,
-        title: "Padaria e Confeitaria",
+        title: 'Padaria e Confeitaria',
       },
       {
         id: 13,
         categoryId: 1,
-        title: "Frios",
+        title: 'Frios',
       },
       {
         id: 14,
         categoryId: 4,
-        title: "Frios",
+        title: 'Frios',
       },
       {
         id: 15,
         categoryId: 4,
-        title: "Acessórios de Informática",
+        title: 'Acessórios de Informática',
       },
       {
         id: 16,
         categoryId: 4,
-        title: "Automotivo",
+        title: 'Automotivo',
       },
       {
         id: 17,
         categoryId: 4,
-        title: "Bebê e Mamãe",
+        title: 'Bebê e Mamãe',
       },
       {
         id: 18,
         categoryId: 4,
-        title: "Beleza",
+        title: 'Beleza',
       },
       {
         id: 19,
         categoryId: 4,
-        title: "Cartucho de tinta",
+        title: 'Cartucho de tinta',
       },
       {
         id: 20,
         categoryId: 4,
-        title: "Casa e Bazar",
+        title: 'Casa e Bazar',
       },
       {
         id: 21,
         categoryId: 4,
-        title: "Eletroportáteis",
+        title: 'Eletroportáteis',
       },
       {
         id: 22,
         categoryId: 4,
-        title: "Higiene",
+        title: 'Higiene',
       },
       {
         id: 23,
         categoryId: 4,
-        title: "Limpeza",
+        title: 'Limpeza',
       },
       {
         id: 24,
         categoryId: 4,
-        title: "Pet Shop",
+        title: 'Pet Shop',
       },
       {
         id: 25,
         categoryId: 5,
-        title: "Produtos Orgânicos",
+        title: 'Produtos Orgânicos',
       },
       {
         id: 26,
         categoryId: 5,
-        title: "Momento Café",
+        title: 'Momento Café',
       },
       {
         id: 27,
         categoryId: 5,
-        title: "Faça sua pizza em casa",
+        title: 'Faça sua pizza em casa',
       },
       {
         id: 28,
         categoryId: 5,
-        title: "Alimentação Restritiva",
+        title: 'Alimentação Restritiva',
       },
       {
         id: 29,
         categoryId: 5,
-        title: "Receitas NESTLÉ",
+        title: 'Receitas NESTLÉ',
       },
       {
         id: 30,
         categoryId: 3,
-        title: "Diet e Light",
+        title: 'Diet e Light',
       },
       {
         id: 31,
         categoryId: 3,
-        title: "Sem Glúten",
+        title: 'Sem Glúten',
       },
       {
         id: 32,
         categoryId: 3,
-        title: "Sem Lactose",
+        title: 'Sem Lactose',
       },
       {
         id: 33,
         categoryId: 3,
-        title: "Vegano",
+        title: 'Vegano',
       },
       {
         id: 34,
         categoryId: 3,
-        title: "Fitness",
+        title: 'Fitness',
       },
     ];
 
@@ -194,7 +194,8 @@ export default function handler(
 
     if (req.query?.categoryId) {
       dataFilters = data.filter(
-        (subcategory) => subcategory.categoryId === Number(req.query.categoryId)
+        (subcategory) =>
+          subcategory.categoryId === Number(req.query.categoryId),
       );
     }
 

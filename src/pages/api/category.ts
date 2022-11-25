@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from 'next';
 
 type Data = {
   id: number;
@@ -7,29 +7,29 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data | undefined>
+  res: NextApiResponse<Data | undefined>,
 ) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const data: Data = [
       {
         id: 1,
-        title: "Alimentos e Bebidas",
+        title: 'Alimentos e Bebidas',
       },
       {
         id: 2,
-        title: "Especiais",
+        title: 'Especiais',
       },
       {
         id: 3,
-        title: "Nutrição Especial",
+        title: 'Nutrição Especial',
       },
       {
         id: 4,
-        title: "Casa, Pessoas e Outros",
+        title: 'Casa, Pessoas e Outros',
       },
       {
         id: 5,
-        title: "Conteúdo Especial",
+        title: 'Conteúdo Especial',
       },
     ];
 

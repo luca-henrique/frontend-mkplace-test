@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from 'next';
 
 type Data = {
   id: number;
@@ -7,129 +7,129 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data | undefined>
+  res: NextApiResponse<Data | undefined>,
 ) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const data: Data = [
       {
         id: 1,
-        name: "Desinfetante",
+        name: 'Desinfetante',
       },
       {
         id: 2,
-        name: "Trigo",
+        name: 'Trigo',
       },
       {
         id: 3,
-        name: "Leite Longavida",
+        name: 'Leite Longavida',
       },
       {
         id: 4,
-        name: "Sabão em pó",
+        name: 'Sabão em pó',
       },
       {
         id: 5,
-        name: "Shampoo",
+        name: 'Shampoo',
       },
       {
         id: 6,
-        name: "Milho verde",
+        name: 'Milho verde',
       },
       {
         id: 7,
-        name: "Café",
+        name: 'Café',
       },
       {
         id: 8,
-        name: "Arroz",
+        name: 'Arroz',
       },
       {
         id: 9,
-        name: "Macarrão",
+        name: 'Macarrão',
       },
       {
         id: 10,
-        name: "Oléo",
+        name: 'Oléo',
       },
       {
         id: 11,
-        name: "Milharina",
+        name: 'Milharina',
       },
       {
         id: 12,
-        name: "Margarina",
+        name: 'Margarina',
       },
       {
         id: 13,
-        name: "Manteiga",
+        name: 'Manteiga',
       },
       {
         id: 14,
-        name: "Biscoito",
+        name: 'Biscoito',
       },
       {
         id: 15,
-        name: "Extrato de tomate",
+        name: 'Extrato de tomate',
       },
       {
         id: 16,
-        name: "Água sem gás",
+        name: 'Água sem gás',
       },
       {
         id: 17,
-        name: "Água com gás",
+        name: 'Água com gás',
       },
       {
         id: 18,
-        name: "Picles",
+        name: 'Picles',
       },
       {
         id: 19,
-        name: "Azeitona",
+        name: 'Azeitona',
       },
       {
         id: 20,
-        name: "Banana",
+        name: 'Banana',
       },
       {
         id: 21,
-        name: "Panela",
+        name: 'Panela',
       },
       {
         id: 22,
-        name: "Couve",
+        name: 'Couve',
       },
       {
         id: 23,
-        name: "Alface",
+        name: 'Alface',
       },
       {
         id: 24,
-        name: "Barra de chocolate",
+        name: 'Barra de chocolate',
       },
       {
         id: 25,
-        name: "Requeijão",
+        name: 'Requeijão',
       },
       {
         id: 26,
-        name: "Nescau",
+        name: 'Nescau',
       },
       {
         id: 27,
-        name: "Sabonete",
+        name: 'Sabonete',
       },
       {
         id: 28,
-        name: "Batata",
+        name: 'Batata',
       },
       {
         id: 29,
-        name: "Morango",
+        name: 'Morango',
       },
       {
         id: 30,
-        name: "Salgadinho",
+        name: 'Salgadinho',
       },
     ];
 
@@ -145,7 +145,7 @@ export default function handler(
       dataFilters = data.filter((product) =>
         product.name
           .toLocaleLowerCase()
-          .includes(String(req.query.name).toLocaleLowerCase())
+          .includes(String(req.query.name).toLocaleLowerCase()),
       );
     }
 
