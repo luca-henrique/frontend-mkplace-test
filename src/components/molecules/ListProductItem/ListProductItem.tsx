@@ -1,9 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import {ProductInformation, ProductName} from './style';
 
 import {Container} from '../..';
-
-import {ProductInformation, ProductName} from './style';
 
 interface IProductItem {
   imageUrl: string;
@@ -13,7 +12,12 @@ interface IProductItem {
   key?: number;
 }
 
-export const ProductItem = ({imageUrl, name, price, type}: IProductItem) => {
+export const ListProductItem = ({
+  imageUrl,
+  name,
+  price,
+  type,
+}: IProductItem) => {
   return (
     <Container
       alignItems='center'

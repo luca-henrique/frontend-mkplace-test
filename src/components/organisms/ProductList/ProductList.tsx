@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
+
 import {ContextApp} from '../../../store/ContextApp';
-import {ProductItem} from '../../molecules/ProductItem/ProductItem';
+
+import {ListProductItem, Container} from '../../';
 
 export const ProductList = () => {
   const {
@@ -8,11 +10,11 @@ export const ProductList = () => {
   } = useContext(ContextApp);
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column'}}>
+    <Container>
       {products?.map((productItem, index) => {
         //@ts-ignore
-        return <ProductItem key={index} {...productItem} />;
+        return <ListProductItem key={index} {...productItem} />;
       })}
-    </div>
+    </Container>
   );
 };
