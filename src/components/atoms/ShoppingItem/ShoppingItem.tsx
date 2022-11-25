@@ -27,7 +27,7 @@ export const ShoppintItem = () => {
           label='value'
           value={checked}
           checked={checked}
-          onChange={({target}) => setChecked(!checked)}
+          onChange={() => setChecked(!checked)}
         />
       </Container>
 

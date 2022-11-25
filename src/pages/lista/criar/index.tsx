@@ -108,8 +108,10 @@ export default function CreateShoppingList() {
 
       <Separator />
 
-      {/*TODO: fazer ajuste do type*/}
-      <CustomInput value={name} setValue={setName} options={listProducts} />
+      {
+        //@ts-ignore
+        <CustomInput value={name} setValue={setName} options={listProducts} />
+      }
 
       <Separator />
 
@@ -133,7 +135,10 @@ export default function CreateShoppingList() {
         </div>
 
         <div className='d-flex flex-column col-5'>
-          <PriceInput value={price} setValue={setPrice} />
+          {
+            //@ts-ignore
+            <PriceInput value={price} setValue={setPrice} />
+          }
         </div>
       </div>
 

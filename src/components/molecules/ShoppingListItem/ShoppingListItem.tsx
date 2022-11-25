@@ -14,11 +14,13 @@ interface IShoppingListItem {
   qtdeItens: number;
 }
 
-export const ShoppingListItem = ({
-  id,
-  qtdeCategoria,
-  qtdeItens,
-}: IShoppingListItem) => {
+interface Shopping {
+  item: IShoppingListItem;
+}
+
+export const ShoppingListItem = ({item}: Shopping) => {
+  const {id, qtdeCategoria, qtdeItens} = item;
+
   return (
     <Link href={`/lista/${id}`}>
       <Container

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {COLORS} from '../../../common';
 
 export interface ITitle {
-  color?: string;
+  color?: keyof typeof COLORS;
 }
 
 export const HeaderTitle = styled.h1<ITitle>`

@@ -15,7 +15,7 @@ import {ToastContainer, toast} from 'react-toastify';
 
 const {paper} = ICONS;
 
-import {Product} from '../../types';
+import {IProduct} from '../../types';
 
 import {ListShoppingService} from '../../service/ListShoppingService';
 import {useRouter} from 'next/router';
@@ -32,7 +32,7 @@ export default function ShoppingList() {
 
   const {list, setList} = useContext(ContextApp);
 
-  const onSubmitSaveList = (event) => {
+  const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     const data = {products: list.products};
@@ -64,7 +64,7 @@ export default function ShoppingList() {
       });
   };
 
-  const getQtdeCategorys = (listProducts: Array<Product>) => {
+  const getQtdeCategorys = (listProducts: Array<IProduct>) => {
     let arrayCategorys = new Array();
     listProducts.forEach((e) => {
       if (!arrayCategorys.includes(e.categoryTitle))
@@ -77,6 +77,8 @@ export default function ShoppingList() {
   const removeItem = (idx: number) => {
     let arrayProducts = list.products;
     arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
+
+    //@ts-ignore
     const arrayCategorys = getQtdeCategorys(arrayProducts);
 
     let dataForm = {

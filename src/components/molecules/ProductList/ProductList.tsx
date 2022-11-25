@@ -4,8 +4,8 @@ import {ShoppintItem} from '../..';
 export const ProductList = ({products}: any) => {
   return (
     <>
-      {products.map(() => {
-        return <ShoppintItem />;
+      {products.map((item: any, index: any) => {
+        return <ShoppintItem key={index} />;
       })}
     </>
   );

@@ -7,7 +7,11 @@ export const Input = styled.input`
   z-index: -1;
 `;
 
-export const Label = styled.label`
+interface ILabel {
+  disabled?: boolean;
+}
+
+export const Label = styled.label<ILabel>`
   height: 24px;
   position: relative;
   display: inline-block;
