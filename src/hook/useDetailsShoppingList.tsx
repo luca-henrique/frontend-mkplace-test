@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect} from 'react';
 import {ListShoppingService} from '../service/ListShoppingService';
 import {ContextApp} from '../store/ContextApp';
 
@@ -8,59 +8,74 @@ export const useDetailsShoppingList = (id: string) => {
   const {list, setList} = useContext(ContextApp);
 
   const getList = async () => {
+    //@ts-ignore
     await shoppingListService.getList().then(async (response: any) => {
-      let soma = 0;
+      let data = searchProdutsById(id, response);
 
-      let data = response.find((elem: any) => elem.id == id);
+      //@ts-ignore
+      let soma = getTotalProducts(data.products);
 
-      data?.products?.forEach((elem: any) => {
-        soma += Number(elem.price) * elem.quantity;
+      //@ts-ignore
+      let arrayCategorys = splitCategories(data.products);
+
+      let splitProducts = splitProductsByCategory(
+        arrayCategorys,
+        //@ts-ignore
+        data.products,
+      );
+      setList({
+        //@ts-ignore
+        id: data.id,
+        products: splitProducts,
+        total: soma,
+        qtdeCategoria: arrayCategorys.length,
+        //@ts-ignore
+        qtdeItens: data?.products.length,
       });
-
-      soma = Number(soma.toFixed(2));
-
-      const products: {type: any; products: any[]}[] = [];
-
-      data?.products?.forEach((elem: any) => {
-        const newArray: any[] = [];
-
-        if (products.length === 0) {
-          newArray.push(elem);
-          products.push({
-            type: elem.categoryTitle,
-            products: newArray,
-          });
-        } else {
-          products.forEach((newElement) => {
-            if (newElement.type === elem.categoryTitle) {
-              newElement.products.push(elem);
-            } else {
-              const otherArray = [];
-              otherArray.push(elem);
-              products.push({
-                type: elem.categoryTitle,
-                products: otherArray,
-              });
-            }
-          });
-        }
-      });
-
-      setList({...data, total: soma});
     });
   };
 
-  const getQtdeCategorys = (listProducts: any) => {
+  const splitProductsByCategory = (categories: any[], products: any[]) => {
+    let splitProducts = new Array();
+
+    categories.forEach((item) => {
+      const evens = products.filter((prod) => item === prod.categoryTitle);
+
+      splitProducts.push({type: item, products: evens});
+    });
+
+    return splitProducts;
+  };
+
+  const splitCategories = (newArray: any[]) => {
     let arrayCategorys = new Array();
-    listProducts.forEach((e) => {
-      if (!arrayCategorys.includes(e.categoryTitle))
+
+    newArray.forEach((e) => {
+      if (!arrayCategorys.includes(e.categoryTitle)) {
         arrayCategorys.push(e.categoryTitle);
+      }
     });
 
     return arrayCategorys;
   };
 
-  console.log(getQtdeCategorys(list.products));
+  const searchProdutsById = (id: string, newArray: []) => {
+    let data = newArray.find((elem: any) => elem.id == id);
+
+    return data;
+  };
+
+  const getTotalProducts = (newArray: []) => {
+    let soma = 0;
+
+    newArray.forEach((elem: any) => {
+      soma += Number(elem.price) * elem.quantity;
+    });
+
+    soma = Number(soma.toFixed(2));
+
+    return soma;
+  };
 
   useEffect(() => {
     getList();

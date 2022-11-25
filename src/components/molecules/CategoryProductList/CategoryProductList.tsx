@@ -1,41 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {ContextApp} from '../../../store/ContextApp';
 import {ProductList} from '../ProductList/ProductList';
 
-const mock = [
-  {
-    category: 'Enlatados',
-    products: [
-      {
-        id: 1,
-        name: 'Milho Verde',
-        price: 100.0,
-        quantity: 1,
-      },
-      {id: 2, name: 'Feijão Tropeiro', price: 100.0, quantity: 1},
-    ],
-  },
-
-  {
-    category: 'Enlatados',
-    products: [
-      {
-        id: 1,
-        name: 'Milho Verde',
-        price: 100.0,
-        quantity: 1,
-      },
-      {id: 2, name: 'Feijão Tropeiro', price: 100.0, quantity: 1},
-    ],
-  },
-];
-
 export const CategoryProductList = () => {
+  const {list} = useContext(ContextApp);
+
   return (
     <>
-      {mock.map((item) => {
+      {list?.products?.map((item: any) => {
         return (
           <>
-            <label style={{margin: '21px 0px'}}>Enlatados</label>
+            <label style={{margin: '21px 0px'}}>{item.type}</label>
             <ProductList products={item.products} />
           </>
         );

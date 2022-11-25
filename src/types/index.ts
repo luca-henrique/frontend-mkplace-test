@@ -16,6 +16,7 @@ export interface ShoppingList {
   products?: IProduct[];
   qtdeCategoria?: number;
   qtdeItens?: number;
+  total?: number | string;
 }
 
 export interface IOption {

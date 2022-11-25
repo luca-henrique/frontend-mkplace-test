@@ -23,7 +23,7 @@ const shoppingListService = new ListShoppingService();
 export default function ShoppingList() {
   const router = useRouter();
 
-  const {list, setList} = useContext(ContextApp);
+  const {list} = useContext(ContextApp);
 
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -57,30 +57,7 @@ export default function ShoppingList() {
       });
   };
 
-  const getQtdeCategorys = (listProducts: Array<IProduct>) => {
-    let arrayCategorys = new Array();
-    listProducts.forEach((e) => {
-      if (!arrayCategorys.includes(e.categoryTitle))
-        arrayCategorys.push(e.categoryTitle);
-    });
-
-    return arrayCategorys;
-  };
-
-  const removeItem = (idx: number) => {
-    let arrayProducts = list.products;
-    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
-
-    //@ts-ignore
-    const arrayCategorys = getQtdeCategorys(arrayProducts);
-
-    let dataForm = {
-      ...list,
-      products: arrayProducts,
-      qtdeCategoria: arrayCategorys.length,
-    };
-    setList(dataForm);
-  };
+  console.log(list.qtdeCategoria);
 
   return (
     <form

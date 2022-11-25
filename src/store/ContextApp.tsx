@@ -16,12 +16,11 @@ export const initialValue = {
 
 type IFile = string | null | ArrayBuffer;
 
-export interface IState {
+export interface IState extends ShoppingList {
   list: ShoppingList;
   setList: (lista: ShoppingList) => void;
   file: IFile;
   setFile: (value: null | ArrayBuffer | string) => void;
-  total?: number | string;
 }
 
 export const ContextApp = React.createContext<IState>(initialValue);

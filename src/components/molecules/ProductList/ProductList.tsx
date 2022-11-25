@@ -5,7 +5,7 @@ export const ProductList = ({products}: any) => {
   return (
     <>
       {products.map((item: any, index: any) => {
-        return <ShoppintItem key={index} />;
+        return <ShoppintItem key={index} item={item} />;
       })}
     </>
   );

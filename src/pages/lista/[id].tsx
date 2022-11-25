@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import {
   Container,
   Header,
@@ -12,11 +12,8 @@ import Image from 'next/image';
 
 import {ICONS} from '../../assets';
 
-import {ListShoppingService} from '../../service/ListShoppingService';
 import {useRouter} from 'next/router';
 import {useDetailsShoppingList} from '../../hook/useDetailsShoppingList';
-
-const shoppingListService = new ListShoppingService();
 
 const {paper} = ICONS;
 
@@ -26,24 +23,6 @@ export default function ShoppingListInfo() {
   const {id}: any = router.query;
 
   const {list} = useDetailsShoppingList(id);
-
-  const [listCategory, setListCategory] = useState<Array<String>>([]);
-
-  const getQtdeCategorys = () => {
-    let arrayCategorys = new Array<String>();
-    list?.products?.forEach((e) => {
-      if (!arrayCategorys.includes(e.categoryTitle))
-        arrayCategorys.push(e.categoryTitle);
-    });
-
-    setListCategory(arrayCategorys);
-  };
-
-  useEffect(() => {
-    if (id) {
-      getQtdeCategorys();
-    }
-  }, [id]);
 
   return (
     <div
@@ -70,7 +49,7 @@ export default function ShoppingListInfo() {
         <Container margin='0px 0px 0px 12px'>
           <Title>Lista</Title>
           <InformationList>
-            {listCategory.length} categorias / {list?.products?.length} itens
+            {list.qtdeCategoria} categorias / {list.qtdeItens} itens
           </InformationList>
         </Container>
       </Container>

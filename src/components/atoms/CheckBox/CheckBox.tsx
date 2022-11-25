@@ -20,9 +20,7 @@ export function Checkbox({
           marginLeft: '26px',
         }}
       >
-        <ProductNameList style={{marginLeft: '16px'}}>
-          Feijão Tropeiro
-        </ProductNameList>
+        <ProductNameList style={{marginLeft: '16px'}}>{label}</ProductNameList>
       </div>
       <Input
         id={id}
