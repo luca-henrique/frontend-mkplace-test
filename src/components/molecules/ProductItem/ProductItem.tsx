@@ -1,12 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import Image from 'next/image';
+
 import {Container} from '../..';
 
-import {ICONS} from '../../../assets';
-
-const {paper} = ICONS;
-
-import Image from 'next/image';
+import {ProductInformation, ProductName} from './style';
 
 interface IProductItem {
   imageUrl: string;
@@ -18,22 +15,13 @@ interface IProductItem {
 
 export const ProductItem = ({imageUrl, name, price, type}: IProductItem) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: '8px',
-      }}
+    <Container
+      alignItems='center'
+      direction='row'
+      justifyContent='space-between'
+      margin='0 0 8px 0'
     >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+      <Container direction='row' alignItems='center'>
         <Container
           alignItems='center'
           justifyContent='center'
@@ -44,30 +32,11 @@ export const ProductItem = ({imageUrl, name, price, type}: IProductItem) => {
         </Container>
 
         <ProductName>{name}</ProductName>
-      </div>
+      </Container>
 
       <ProductInformation>
         {price} / {type}
       </ProductInformation>
-    </div>
+    </Container>
   );
 };
-
-const ProductName = styled.label`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-  margin-left: 16px;
-`;
-
-const ProductInformation = styled.label`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  color: #5d5d5b;
-`;
