@@ -2,6 +2,7 @@
   "name": "test-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://frontend-mkplace-test-4fvw1l8f1-luca-henrique.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

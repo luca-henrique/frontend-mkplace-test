@@ -1,16 +1,21 @@
 import axios from 'axios';
 
+import {BASE_URL} from './api';
+
+const headers = {'Access-Control-Allow-Origin': '*', origin: '*'};
+
 export class ListShoppingService {
   private urlPath: string;
 
   constructor() {
-    this.urlPath = 'http://localhost:3000/api/list';
+    this.urlPath = `${BASE_URL}/list`;
   }
 
   getList(params?: string) {
     return axios
       .get(this.urlPath, {
         params: params,
+        headers,
       })
       .then((response) => response.data);
   }
