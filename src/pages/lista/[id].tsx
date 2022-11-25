@@ -5,6 +5,7 @@ import {
   InformationList,
   Title,
   CategoryProductList,
+  Separator,
 } from '../../components';
 
 import Image from 'next/image';
@@ -68,7 +69,7 @@ export default function ShoppingListInfo() {
       className='d-flex flex-column h-100 overflow-auto'
       style={{padding: '24px 16px'}}
     >
-      <Header routeDescription={`Lista ${id}`} />
+      <Header routeDescription={`Lista ${list.id}`} />
 
       <div className='mt-3' />
 
@@ -87,7 +88,9 @@ export default function ShoppingListInfo() {
 
         <Container margin='0px 0px 0px 12px'>
           <Title>Lista</Title>
-          <InformationList>2 categorias / 2 itens</InformationList>
+          <InformationList>
+            {listCategory.length} categorias / {list?.products?.length} itens
+          </InformationList>
         </Container>
       </Container>
       <div className='mt-3' />
@@ -97,12 +100,7 @@ export default function ShoppingListInfo() {
         <Title>{formatText}</Title>
       </Container>
 
-      <div
-        style={{
-          marginTop: '8px',
-          border: '1px solid #CFDBD5',
-        }}
-      />
+      <Separator />
 
       <CategoryProductList />
     </div>

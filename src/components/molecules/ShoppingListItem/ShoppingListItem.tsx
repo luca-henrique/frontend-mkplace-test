@@ -9,6 +9,7 @@ import {ICONS} from '../../../assets';
 const {paper, arrowRight} = ICONS;
 
 interface IShoppingListItem {
+  key?: any;
   id: number;
   qtdeCategoria: number;
   qtdeItens: number;

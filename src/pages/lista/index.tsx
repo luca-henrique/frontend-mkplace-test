@@ -1,4 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
+import Image from 'next/image';
+import {ToastContainer, toast} from 'react-toastify';
+
 import {
   Container,
   Header,
@@ -7,24 +10,14 @@ import {
   Separator,
 } from '../../components';
 
-import Image from 'next/image';
-
 import {ICONS} from '../../assets';
-import styled from 'styled-components';
-import {ToastContainer, toast} from 'react-toastify';
-
-const {paper} = ICONS;
-
+import {useRouter} from 'next/router';
+import {ContextApp} from '../../store/ContextApp';
+import {ProductList} from '../../components/organisms/ProductList/ProductList';
+import {ListShoppingService} from '../../service/ListShoppingService';
 import {IProduct} from '../../types';
 
-import {ListShoppingService} from '../../service/ListShoppingService';
-import {useRouter} from 'next/router';
-import {ContextApp, initialValue} from '../../store/ContextApp';
-import {ProductItem} from '../../components/molecules/ProductItem/ProductItem';
-import {ProductList} from '../../components/organisms/ProductList/ProductList';
-
-export {initialValue} from '../../store/ContextApp';
-
+const {paper} = ICONS;
 const shoppingListService = new ListShoppingService();
 
 export default function ShoppingList() {
@@ -143,7 +136,9 @@ export default function ShoppingList() {
 
         <div className='mt-3' />
 
-        <button className='btn-primary'>Concluir lista</button>
+        <button className='btn-primary' type='submit'>
+          Concluir lista
+        </button>
       </div>
       <ToastContainer />
     </form>
