@@ -20,7 +20,9 @@ export function Checkbox({
           marginLeft: '26px',
         }}
       >
-        <ProductNameList style={{marginLeft: '16px'}}>{label}</ProductNameList>
+        <ProductNameList style={{marginLeft: '16px'}} checked={checked}>
+          {label}
+        </ProductNameList>
       </div>
       <Input
         id={id}

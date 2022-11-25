@@ -1,11 +1,9 @@
 import React, {useContext, useState} from 'react';
-import {Container, ProductInformation, QuantityProduct} from '..';
+
+import {Container, ProductInformation, QuantityProduct, Checkbox} from '../../';
 import {ContextApp} from '../../../store/ContextApp';
-import {Checkbox} from '../CheckBox/CheckBox';
 
-export const ShoppintItem = ({item}: any) => {
-  console.log(item);
-
+export const DetailShoppingItem = ({item}: any) => {
   const [quantity, setQuantity] = useState(1);
   const [checked, setChecked] = useState(false);
 

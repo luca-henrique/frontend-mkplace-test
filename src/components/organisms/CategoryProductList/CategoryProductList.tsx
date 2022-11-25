@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
+import {DetailProductList} from '../..';
 import {ContextApp} from '../../../store/ContextApp';
-import {ProductList} from '../ProductList/ProductList';
 
 export const CategoryProductList = () => {
   const {list} = useContext(ContextApp);
@@ -8,10 +8,11 @@ export const CategoryProductList = () => {
   return (
     <>
       {list?.products?.map((item: any) => {
+        console.log(item);
         return (
           <>
             <label style={{margin: '21px 0px'}}>{item.type}</label>
-            <ProductList products={item.products} />
+            <DetailProductList products={item.products} />
           </>
         );
       })}

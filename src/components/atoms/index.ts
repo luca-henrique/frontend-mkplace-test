@@ -7,5 +7,7 @@ export {CountInput} from './CountInput/CountInput';
 export {PriceInput} from './PriceInput/PriceInput';
 
 export {QuantityProduct} from './QuantityProduct/QuantityProduct';
-export {ShoppintItem} from './ShoppingItem/ShoppingItem';
+
 export {Separator} from './Separator/Separator';
+
+export {Checkbox} from './CheckBox/CheckBox';

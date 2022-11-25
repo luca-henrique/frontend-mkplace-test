@@ -15,7 +15,6 @@ import {useRouter} from 'next/router';
 import {ContextApp} from '../../store/ContextApp';
 import {ProductList} from '../../components/organisms/ProductList/ProductList';
 import {ListShoppingService} from '../../service/ListShoppingService';
-import {IProduct} from '../../types';
 
 const {paper} = ICONS;
 const shoppingListService = new ListShoppingService();

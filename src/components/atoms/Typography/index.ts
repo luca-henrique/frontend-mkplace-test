@@ -4,6 +4,7 @@ import {COLORS} from '../../../common';
 
 export interface ITitle {
   color?: keyof typeof COLORS;
+  checked?: boolean;
 }
 
 export const HeaderTitle = styled.h1<ITitle>`
@@ -30,10 +31,12 @@ export const ProductNameList = styled.h2<ITitle>`
   font-weight: 700;
   font-size: 14px;
   line-height: 21px;
-  color: ${({color}) => (color ? COLORS[color] : '#000')};
+  color: ${({checked}) => (checked ? '#5D5D5B' : '#000')};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  text-decoration: ${({checked}) => (checked ? 'line-through' : 'none')};
 `;
 
 export const InformationList = styled.h3`
