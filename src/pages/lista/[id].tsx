@@ -11,40 +11,23 @@ import {
 import Image from 'next/image';
 
 import {ICONS} from '../../assets';
-import {ContextApp} from '../../store/ContextApp';
 
 import {ListShoppingService} from '../../service/ListShoppingService';
 import {useRouter} from 'next/router';
+import {useDetailsShoppingList} from '../../hook/useDetailsShoppingList';
 
 const shoppingListService = new ListShoppingService();
 
 const {paper} = ICONS;
 
 export default function ShoppingListInfo() {
-  const {list, setList} = useContext(ContextApp);
-
-  const [total, setTotal] = useState<String | Number>('0,00');
-  const [listCategory, setListCategory] = useState<Array<String>>([]);
-
   const router = useRouter();
+
   const {id}: any = router.query;
 
-  const getList = async () => {
-    //@ts-ignore
-    await shoppingListService.getList({id}).then(async (response) => {
-      let data = response.find((elem: any) => elem.id == id);
-      setList(data);
-    });
-  };
+  const {list} = useDetailsShoppingList(id);
 
-  const calcSoma = () => {
-    let soma = 0;
-    list?.products?.forEach((elem) => {
-      soma += Number(elem.price);
-    });
-
-    setTotal(soma);
-  };
+  const [listCategory, setListCategory] = useState<Array<String>>([]);
 
   const getQtdeCategorys = () => {
     let arrayCategorys = new Array<String>();
@@ -57,12 +40,10 @@ export default function ShoppingListInfo() {
   };
 
   useEffect(() => {
-    getList();
-    calcSoma();
-    getQtdeCategorys();
-  }, []);
-
-  const formatText = `R$${total}`;
+    if (id) {
+      getQtdeCategorys();
+    }
+  }, [id]);
 
   return (
     <div
@@ -97,7 +78,7 @@ export default function ShoppingListInfo() {
 
       <Container direction='row' justifyContent='space-between'>
         <Title>Total do carrinho</Title>
-        <Title>{formatText}</Title>
+        <Title>{`R$${list?.total}`}</Title>
       </Container>
 
       <Separator />

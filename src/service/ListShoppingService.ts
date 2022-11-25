@@ -9,7 +9,7 @@ export class ListShoppingService {
     this.urlPath = `${BASE_URL_LOCAL}/list`;
   }
 
-  getList(params?: string) {
+  getList() {
     return axios.get(this.urlPath).then((response) => response.data);
   }
 

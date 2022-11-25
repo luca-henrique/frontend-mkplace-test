@@ -21,6 +21,7 @@ export interface IState {
   setList: (lista: ShoppingList) => void;
   file: IFile;
   setFile: (value: null | ArrayBuffer | string) => void;
+  total?: number | string;
 }
 
 export const ContextApp = React.createContext<IState>(initialValue);
