@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import {BASE_URL} from './api';
 
-const headers = {'Access-Control-Allow-Origin': '*', origin: '*'};
-
 export class ListShoppingService {
   private urlPath: string;
 
@@ -15,7 +13,6 @@ export class ListShoppingService {
     return axios
       .get(this.urlPath, {
         params: params,
-        headers,
       })
       .then((response) => response.data);
   }
