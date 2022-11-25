@@ -16,13 +16,7 @@ interface IProductItem {
   key?: number;
 }
 
-interface IProductObj {
-  item: IProductItem;
-}
-
-export const ProductItem = ({item}: IProductObj) => {
-  const {imageUrl, name, price, type} = item;
-
+export const ProductItem = ({imageUrl, name, price, type}: IProductItem) => {
   return (
     <div
       style={{
