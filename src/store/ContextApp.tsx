@@ -2,12 +2,22 @@ import React, {useState} from 'react';
 
 import {ShoppingList} from '../types';
 
-export const initialValue = {
+import {IShoppingList} from '../types/product.types';
+
+interface Props {
+  list: IShoppingList;
+  setList: (obj: IShoppingList) => void;
+  file?: null;
+  setFile?: (file: string) => void;
+}
+
+export const initialValue: Props = {
   list: {
     id: 0,
     products: [],
     qtdeCategoria: 0,
     qtdeItens: 0,
+    total: 0,
   },
   setList: () => {},
   file: null,
