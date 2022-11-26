@@ -11,7 +11,9 @@ export const useDetailsShoppingList = (id?: string) => {
   const [loading, setLoading] = useState(true);
 
   const checkedItem = (id: any) => {
+    //@ts-ignore
     const resultado = list.products.map((item) => {
+      //@ts-ignore
       const updated = item?.products?.map((product) => {
         if (product.id === id) {
           return {...product, checked: !product.checked};
@@ -22,7 +24,44 @@ export const useDetailsShoppingList = (id?: string) => {
 
       return {type: item.type, products: updated};
     });
+    //@ts-ignore
+    setList({...list, products: resultado});
+  };
 
+  const productIncrement = (id: any) => {
+    //@ts-ignore
+    const resultado = list.products.map((item) => {
+      //@ts-ignore
+      const updated = item?.products?.map((product) => {
+        if (product.id === id) {
+          return {...product, quantity: product.quantity + 1};
+        } else {
+          return {...product};
+        }
+      });
+
+      return {type: item.type, products: updated};
+    });
+    //@ts-ignore
+    setList({...list, products: resultado});
+  };
+
+  const productDecrement = (id: any) => {
+    //@ts-ignore
+    const resultado = list.products.map((item) => {
+      //@ts-ignore
+      const updated = item?.products?.map((product) => {
+        if (product.id === id) {
+          return {...product, quantity: product.quantity - 1};
+        } else {
+          return {...product};
+        }
+      });
+
+      return {type: item.type, products: updated};
+    });
+
+    //@ts-ignore
     setList({...list, products: resultado});
   };
 
@@ -112,5 +151,5 @@ export const useDetailsShoppingList = (id?: string) => {
     }
   }, []);
 
-  return {list, loading, checkedItem};
+  return {list, loading, checkedItem, productDecrement, productIncrement};
 };

@@ -1,10 +1,11 @@
 import {Minus, Plus} from 'phosphor-react';
 import {useContext} from 'react';
+import {useDetailsShoppingList} from '../../../hook/useDetailsShoppingList';
 import {ContextApp} from '../../../store/ContextApp';
 
 export const QuantityProduct = ({value, setValue, id}: any) => {
   const {list, setList} = useContext(ContextApp);
-  const incrementProduct = () => {};
+  const {productDecrement, productIncrement} = useDetailsShoppingList();
 
   const decrementItem = (idx: number) => {
     let arrayProducts = list.products;
@@ -44,7 +45,7 @@ export const QuantityProduct = ({value, setValue, id}: any) => {
           size={10}
           weight='bold'
           onClick={() => {
-            decrementItem(1);
+            productDecrement(id);
           }}
         />
       </div>
@@ -66,7 +67,7 @@ export const QuantityProduct = ({value, setValue, id}: any) => {
           className='cursor-pointer'
           size={10}
           weight='bold'
-          onClick={() => setValue(value + 1)}
+          onClick={() => productIncrement(id)}
         />
       </div>
     </div>

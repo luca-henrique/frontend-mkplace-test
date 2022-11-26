@@ -5,9 +5,6 @@ import {useDetailsShoppingList} from '../../../hook/useDetailsShoppingList';
 import {ContextApp} from '../../../store/ContextApp';
 
 export const DetailShoppingItem = ({item}: any) => {
-  const [quantity, setQuantity] = useState(1);
-  const [checked, setChecked] = useState(false);
-
   const {checkedItem} = useDetailsShoppingList();
 
   return (
@@ -31,11 +28,7 @@ export const DetailShoppingItem = ({item}: any) => {
           R${item.price} / {item.type}
         </ProductInformation>
 
-        <QuantityProduct
-          value={item.quantity}
-          setValue={setQuantity}
-          id={item.id}
-        />
+        <QuantityProduct value={item.quantity} id={item.id} />
       </Container>
     </Container>
   );
