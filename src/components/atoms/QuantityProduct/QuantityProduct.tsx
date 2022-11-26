@@ -2,7 +2,7 @@ import {Minus, Plus} from 'phosphor-react';
 import {useContext} from 'react';
 import {ContextApp} from '../../../store/ContextApp';
 
-export const QuantityProduct = ({value, setValue}: any) => {
+export const QuantityProduct = ({value, setValue, id}: any) => {
   const {list, setList} = useContext(ContextApp);
   const incrementProduct = () => {};
 
@@ -44,7 +44,7 @@ export const QuantityProduct = ({value, setValue}: any) => {
           size={10}
           weight='bold'
           onClick={() => {
-            if (value > 1) setValue(value - 1);
+            decrementItem(1);
           }}
         />
       </div>

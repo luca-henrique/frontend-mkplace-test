@@ -1,17 +1,14 @@
 import React, {useContext, useState} from 'react';
 
 import {Container, ProductInformation, QuantityProduct, Checkbox} from '../../';
+import {useDetailsShoppingList} from '../../../hook/useDetailsShoppingList';
 import {ContextApp} from '../../../store/ContextApp';
 
 export const DetailShoppingItem = ({item}: any) => {
   const [quantity, setQuantity] = useState(1);
   const [checked, setChecked] = useState(false);
 
-  const {list, setList} = useContext(ContextApp);
-
-  const handleCheckboxChange = (event: any) => {};
-
-  console.log(item);
+  const {checkedItem} = useDetailsShoppingList();
 
   return (
     <Container
@@ -23,9 +20,9 @@ export const DetailShoppingItem = ({item}: any) => {
       <Container direction='row'>
         <Checkbox
           label={item.name}
-          value={checked}
-          checked={checked}
-          onChange={() => setChecked(!checked)}
+          value={item.checked}
+          checked={item.checked}
+          onChange={() => checkedItem(item.id)}
         />
       </Container>
 
@@ -34,7 +31,11 @@ export const DetailShoppingItem = ({item}: any) => {
           R${item.price} / {item.type}
         </ProductInformation>
 
-        <QuantityProduct value={item.quantity} setValue={setQuantity} />
+        <QuantityProduct
+          value={item.quantity}
+          setValue={setQuantity}
+          id={item.id}
+        />
       </Container>
     </Container>
   );

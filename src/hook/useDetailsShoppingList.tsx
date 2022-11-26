@@ -6,22 +6,35 @@ import {v4 as uuidv4} from 'uuid';
 
 const shoppingListService = new ListShoppingService();
 
-export const useDetailsShoppingList = (id: string) => {
+export const useDetailsShoppingList = (id?: string) => {
   const {list, setList} = useContext(ContextApp);
   const [loading, setLoading] = useState(true);
+
+  const checkedItem = (id: any) => {
+    const resultado = list.products.map((item) => {
+      const updated = item?.products?.map((product) => {
+        if (product.id === id) {
+          return {...product, checked: !product.checked};
+        } else {
+          return {...product};
+        }
+      });
+
+      return {type: item.type, products: updated};
+    });
+
+    setList({...list, products: resultado});
+  };
 
   const getList = async () => {
     //@ts-ignore
     await shoppingListService.getList().then(async (response: any) => {
       let data = searchProdutsById(id, response);
-
       const formatArray: any = [];
       //@ts-ignore
       data?.products?.map((item) => {
         formatArray.push({...item, id: uuidv4(), checked: false});
       });
-
-      console.log('formatArray', formatArray);
 
       //@ts-ignore
       const newArray = {id: data.id, products: formatArray};
@@ -30,21 +43,21 @@ export const useDetailsShoppingList = (id: string) => {
       let soma = getTotalProducts(newArray?.products);
 
       //@ts-ignore
-      let arrayCategorys = splitCategories(data.products);
+      let arrayCategorys = splitCategories(newArray.products);
 
       let splitProducts = splitProductsByCategory(
         arrayCategorys,
         //@ts-ignore
-        data.products,
+        newArray.products,
       );
       setList({
         //@ts-ignore
-        id: data.id,
+        id: newArray.id,
         products: splitProducts,
         total: soma,
         qtdeCategoria: arrayCategorys.length,
         //@ts-ignore
-        qtdeItens: data?.products.length,
+        qtdeItens: newArray?.products.length,
       });
 
       setLoading(false);
@@ -94,8 +107,10 @@ export const useDetailsShoppingList = (id: string) => {
   };
 
   useEffect(() => {
-    getList();
+    if (id) {
+      getList();
+    }
   }, []);
 
-  return {list, loading};
+  return {list, loading, checkedItem};
 };
