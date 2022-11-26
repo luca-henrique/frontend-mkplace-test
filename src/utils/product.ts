@@ -134,3 +134,19 @@ export const filterProduct = (id: any, response: any) => {
     qtdeItens: newArray?.products.length,
   };
 };
+
+export const filterListByCategoryProduct = (resp: any) => {
+  const dataList = resp.map((elem: any) => {
+    let listCategoria = new Array();
+    elem.products.forEach((e: any) => {
+      if (!listCategoria.includes(e.categoryTitle))
+        listCategoria.push(e.categoryTitle);
+    });
+    elem.qtdeCategoria = listCategoria.length;
+    elem.qtdeItens = elem.products.length;
+
+    return elem;
+  });
+
+  return dataList;
+};

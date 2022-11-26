@@ -1,36 +1,20 @@
 import {useEffect, useState} from 'react';
 
-import {ListShoppingService} from '../service/ListShoppingService';
-
-const shoppingListService = new ListShoppingService();
+import {getListCategoryProductService} from '../utils/serviceList';
 
 export const useShoppingListData = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getList = async () => {
+    const {dataList, loading} = await getListCategoryProductService();
+    setData(dataList);
+    setLoading(loading);
+  };
+
   useEffect(() => {
     getList();
   }, []);
-
-  const getList = () => {
-    shoppingListService.getList().then((resp) => {
-      const dataList = resp.map((elem: any) => {
-        let listCategoria = new Array();
-        //@ts-ignore
-        elem.products.forEach((e) => {
-          if (!listCategoria.includes(e.categoryTitle))
-            listCategoria.push(e.categoryTitle);
-        });
-        elem.qtdeCategoria = listCategoria.length;
-        elem.qtdeItens = elem.products.length;
-
-        return elem;
-      });
-
-      setData(dataList);
-      setLoading(false);
-    });
-  };
 
   return {data, loading};
 };
