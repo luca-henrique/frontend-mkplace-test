@@ -75,7 +75,7 @@ export default async function handler(
         res.status(200).json(data);
         break;
       case 'POST':
-        if (!req?.body?.products || req?.body?.products?.length <= 0) {
+        if (!req?.body || req?.body?.length <= 0) {
           throw new Error('É obrigatório enviar algum produto');
         }
 
@@ -84,7 +84,7 @@ export default async function handler(
           products: [],
         };
 
-        req.body.products.map((product: any) => {
+        req.body.map((product: any) => {
           if (!product.categoryTitle) {
             throw new Error('O título da categoria é obrigatório');
           }

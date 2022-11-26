@@ -1,6 +1,24 @@
 import {Minus, Plus} from 'phosphor-react';
+import {useContext} from 'react';
+import {ContextApp} from '../../../store/ContextApp';
 
 export const QuantityProduct = ({value, setValue}: any) => {
+  const {list, setList} = useContext(ContextApp);
+  const incrementProduct = () => {};
+
+  const decrementItem = (idx: number) => {
+    let arrayProducts = list.products;
+    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
+
+    let dataForm = {
+      ...list,
+      products: arrayProducts,
+    };
+
+    console.log(decrementItem);
+    //setList(dataForm);
+  };
+
   return (
     <div
       style={{

@@ -11,18 +11,7 @@ export const DetailShoppingItem = ({item}: any) => {
 
   const handleCheckboxChange = (event: any) => {};
 
-  const incrementProduct = () => {};
-
-  const decrementItem = (idx: number) => {
-    let arrayProducts = list.products;
-    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
-
-    let dataForm = {
-      ...list,
-      products: arrayProducts,
-    };
-    setList(dataForm);
-  };
+  console.log(item);
 
   return (
     <Container

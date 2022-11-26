@@ -26,10 +26,10 @@ export default function ShoppingList() {
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const data = {products: productList.products};
     shoppingListService
-      .postList(data)
+      .postList(productList)
       .then((response) => {
+        console.log(response);
         router.push('/');
         setProductList({});
       })

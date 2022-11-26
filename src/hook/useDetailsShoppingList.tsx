@@ -2,6 +2,8 @@ import {useContext, useEffect, useState} from 'react';
 import {ListShoppingService} from '../service/ListShoppingService';
 import {ContextApp} from '../store/ContextApp';
 
+import {v4 as uuidv4} from 'uuid';
+
 const shoppingListService = new ListShoppingService();
 
 export const useDetailsShoppingList = (id: string) => {
@@ -13,8 +15,19 @@ export const useDetailsShoppingList = (id: string) => {
     await shoppingListService.getList().then(async (response: any) => {
       let data = searchProdutsById(id, response);
 
+      const formatArray: any = [];
       //@ts-ignore
-      let soma = getTotalProducts(data.products);
+      data?.products?.map((item) => {
+        formatArray.push({...item, id: uuidv4(), checked: false});
+      });
+
+      console.log('formatArray', formatArray);
+
+      //@ts-ignore
+      const newArray = {id: data.id, products: formatArray};
+
+      //@ts-ignore
+      let soma = getTotalProducts(newArray?.products);
 
       //@ts-ignore
       let arrayCategorys = splitCategories(data.products);
