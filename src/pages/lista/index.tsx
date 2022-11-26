@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Image from 'next/image';
-import {ToastContainer, toast} from 'react-toastify';
 
 import {
   Container,
@@ -12,9 +11,9 @@ import {
 
 import {ICONS} from '../../assets';
 import {useRouter} from 'next/router';
-import {ContextApp} from '../../store/ContextApp';
 import {ProductList} from '../../components/organisms/ProductList/ProductList';
 import {ListShoppingService} from '../../service/ListShoppingService';
+import useLocalStorage from '../../hook/useLocalStorage';
 
 const {paper} = ICONS;
 const shoppingListService = new ListShoppingService();
@@ -22,41 +21,20 @@ const shoppingListService = new ListShoppingService();
 export default function ShoppingList() {
   const router = useRouter();
 
-  const {list} = useContext(ContextApp);
+  const [productList, setProductList] = useLocalStorage('productList', '');
 
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const data = {products: list.products};
+    const data = {products: productList.products};
     shoppingListService
       .postList(data)
       .then((response) => {
-        toast.success('Salvo com sucesso !', {
-          position: 'bottom-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
         router.push('/');
+        setProductList({});
       })
-      .catch(() => {
-        toast.error('Ocorreu algo de errado ! :(', {
-          position: 'bottom-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
+      .catch(() => {});
   };
-
-  console.log(list.qtdeCategoria);
 
   return (
     <form
@@ -85,14 +63,12 @@ export default function ShoppingList() {
             width='48px'
             borderRadius='10px'
           >
-            <Image src={paper} alt='mkplace' />
+            <Image src={paper} alt='mkplace' width='100' height='100%' />
           </Container>
 
           <Container margin='0px 0px 0px 12px'>
             <Title>Lista</Title>
-            <InformationList>
-              {list.qtdeCategoria} categorias / {list.qtdeItens} itens
-            </InformationList>
+            <InformationList>1 categorias / 1 itens</InformationList>
           </Container>
         </Container>
         <Separator />
@@ -116,7 +92,6 @@ export default function ShoppingList() {
           Concluir lista
         </button>
       </div>
-      <ToastContainer />
     </form>
   );
 }

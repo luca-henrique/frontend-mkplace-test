@@ -8,7 +8,6 @@ export const CategoryProductList = () => {
   return (
     <>
       {list?.products?.map((item: any) => {
-        console.log(item);
         return (
           <>
             <label style={{margin: '21px 0px'}}>{item.type}</label>

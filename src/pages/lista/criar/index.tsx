@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
   Header,
   Upload,
@@ -15,6 +15,8 @@ import {useInformationProduct} from '../../../hook/useInformationProduct';
 import {ContextApp} from '../../../store/ContextApp';
 import {IProduct, ShoppingList} from '../../../types';
 
+import useLocalStorage from '../../../hook/useLocalStorage';
+
 export default function CreateShoppingList() {
   const [categoryTitle, setCategoryTitle] = useState(String);
   const [subCategory, setSubCategory] = useState(String);
@@ -23,20 +25,13 @@ export default function CreateShoppingList() {
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const {file, setFile, list, setList} = useContext(ContextApp);
+  const [productList, setProductList] = useLocalStorage('productList', '');
+
+  const {file, setFile} = useContext(ContextApp);
 
   const router = useRouter();
 
   const {listCategory, listProducts, listSubCategory} = useInformationProduct();
-
-  const getQtdeCategorys = (products: IProduct[]) => {
-    let arrayCategorys = new Array();
-    products.forEach((e) => {
-      if (!arrayCategorys.includes(e.categoryTitle))
-        arrayCategorys.push(e.categoryTitle);
-    });
-    return arrayCategorys;
-  };
 
   const clearForm = () => {
     setCategoryTitle('');
@@ -51,8 +46,8 @@ export default function CreateShoppingList() {
   const onSubmitItem = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    //@ts-ignore
-    let arrayProducts: IProduct[] = list?.products;
+    let arrayProducts: IProduct[] = productList.length ? productList : [];
+
     arrayProducts?.push({
       categoryTitle: categoryTitle,
       name: name,
@@ -62,17 +57,7 @@ export default function CreateShoppingList() {
       imageUrl: file,
     });
 
-    const arrayCategorys = getQtdeCategorys(arrayProducts);
-
-    let dataForm: ShoppingList = {
-      ...list,
-      products: arrayProducts,
-      qtdeCategoria: arrayCategorys.length,
-      qtdeItens: arrayProducts?.length,
-    };
-
-    setList(dataForm);
-
+    setProductList(arrayProducts);
     router.push('/lista');
 
     clearForm();

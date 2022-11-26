@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {ListShoppingService} from '../service/ListShoppingService';
 import {ContextApp} from '../store/ContextApp';
 
@@ -6,6 +6,7 @@ const shoppingListService = new ListShoppingService();
 
 export const useDetailsShoppingList = (id: string) => {
   const {list, setList} = useContext(ContextApp);
+  const [loading, setLoading] = useState(true);
 
   const getList = async () => {
     //@ts-ignore
@@ -32,6 +33,8 @@ export const useDetailsShoppingList = (id: string) => {
         //@ts-ignore
         qtdeItens: data?.products.length,
       });
+
+      setLoading(false);
     });
   };
 
@@ -81,5 +84,5 @@ export const useDetailsShoppingList = (id: string) => {
     getList();
   }, []);
 
-  return {list};
+  return {list, loading};
 };

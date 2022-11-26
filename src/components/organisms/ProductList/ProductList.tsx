@@ -1,17 +1,14 @@
-import React, {useContext} from 'react';
-
-import {ContextApp} from '../../../store/ContextApp';
+import React from 'react';
 
 import {ListProductItem, Container} from '../../';
+import useLocalStorage from '../../../hook/useLocalStorage';
 
 export const ProductList = () => {
-  const {
-    list: {products},
-  } = useContext(ContextApp);
+  const [productList, _] = useLocalStorage('productList', '');
 
   return (
     <Container>
-      {products?.map((productItem, index) => {
+      {productList?.map((productItem: any, index: any) => {
         //@ts-ignore
         return <ListProductItem key={index} {...productItem} />;
       })}
