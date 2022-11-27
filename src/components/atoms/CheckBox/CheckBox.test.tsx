@@ -12,6 +12,4 @@ describe('<CheckBox />', () => {
   it('should ', () => {
     expect(getByAltText('mkplace')).toBeInTheDocument();
   });
-
-  debug();
 });
