@@ -56,7 +56,7 @@ export const ShoppingListItem = ({item}: Shopping) => {
           </Container>
         </Container>
 
-        <Image src={arrowRight} alt='mkplace' />
+        <Image src={arrowRight} alt='seta para direita' />
       </Container>
     </Link>
   );
