@@ -10,6 +10,7 @@ export const CardCreateShoppingList = () => {
   return (
     <Link href='/lista/criar'>
       <Container
+        data-testid='container-card-create-shopping-list-test-id'
         borderColor='red-300'
         direction='row'
         alignItems='center'
