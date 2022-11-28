@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from 'next/image';
 
 import {
@@ -22,6 +22,8 @@ export default function ShoppingList() {
   const router = useRouter();
 
   const [productList, setProductList] = useLocalStorage('productList', '');
+
+  console.log(productList);
 
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();

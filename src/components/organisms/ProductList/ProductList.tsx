@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ListProductItem, Container} from '../../';
 import useLocalStorage from '../../../hook/useLocalStorage';
 
 export const ProductList = () => {
-  const [productList, _] = useLocalStorage('productList', '');
-  console.log(productList);
+  const [productList, _] = useLocalStorage('productList', []);
+
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
+
   return (
     <Container>
-      {productList.map((productItem: any, index: any) => {
-        //@ts-ignore
-        return <ListProductItem key={index} {...productItem} />;
-      })}
+      {domLoaded &&
+        productList.map((productItem: any, index: any) => {
+          return <ListProductItem key={index} {...productItem} />;
+        })}
     </Container>
   );
 };

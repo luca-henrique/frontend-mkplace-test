@@ -7,7 +7,7 @@ import {Container} from '../..';
 interface IProductItem {
   imageUrl: string;
   name: string;
-  price: string | number;
+  price: number;
   type: string;
   key?: number;
 }
@@ -39,7 +39,7 @@ export const ListProductItem = ({
       </Container>
 
       <ProductInformation>
-        {price} / {type}
+        R$ {price} / {type}
       </ProductInformation>
     </Container>
   );
