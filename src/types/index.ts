@@ -4,6 +4,7 @@ export interface TypeProduct {
 
 export interface IProduct {
   categoryTitle: string;
+  subCategory?: string;
   name: string;
   quantity: number;
   type: string;
@@ -21,6 +22,5 @@ export interface ShoppingList {
 
 export interface IOption {
   id: number;
-  title?: string;
-  name?: string;
+  label?: string;
 }

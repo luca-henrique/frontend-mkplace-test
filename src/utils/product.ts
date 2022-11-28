@@ -59,8 +59,6 @@ export const splitProductsByCategory = (
     splitProducts.push({type: item, products: newArray});
   });
 
-  console.log(splitProducts);
-
   return splitProducts;
 };
 

@@ -1,36 +1,30 @@
 import {useEffect, useState} from 'react';
-import {CategoryService} from '../service/CategoryService';
-import {ProductService} from '../service/ProductService';
 import {IOption} from '../types';
 
-const categoriesService = new CategoryService();
-const productService = new ProductService();
+import {
+  getCategories,
+  getProducts,
+  getSubCategories,
+} from '../utils/serviceCategories';
 
 export const useInformationProduct = () => {
   const [listCategory, setListCategory] = useState<IOption[]>([]);
   const [listSubCategory, setListSubCategory] = useState<IOption[]>([]);
   const [listProducts, setListProducts] = useState<IOption[]>([]);
 
-  const [loading, setLoading] = useState(true);
+  const getAllSelects = async () => {
+    const {categories} = await getCategories();
+    const {subcategories} = await getSubCategories();
+    const {products} = await getProducts();
 
-  const getAllSelects = () => {
-    const requestCategory = categoriesService.getCategoty();
-    const requestSubCategory = categoriesService.getSubCategoty();
-    const requestProducts = productService.getProduct();
-
-    Promise.all([requestCategory, requestSubCategory, requestProducts]).then(
-      (response) => {
-        setListCategory(response[0]);
-        setListSubCategory(response[1]);
-        setListProducts(response[2]);
-      },
-    );
-    setLoading(false);
+    setListCategory(categories);
+    setListSubCategory(subcategories);
+    setListProducts(products);
   };
 
   useEffect(() => {
     getAllSelects();
   }, []);
 
-  return {listCategory, listProducts, listSubCategory, loading};
+  return {listCategory, listProducts, listSubCategory};
 };

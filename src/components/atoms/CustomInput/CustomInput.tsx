@@ -1,12 +1,17 @@
 export interface IOption {
   id: number;
-  name: string;
+  label: any;
+}
+
+interface ISelect {
+  id: number;
+  label: string;
 }
 
 interface ICustomInput {
   value: string;
   setValue: (value: string) => void;
-  options: IOption[];
+  options: ISelect[];
 }
 
 export const CustomInput = ({value, setValue, options}: ICustomInput) => {
@@ -22,9 +27,9 @@ export const CustomInput = ({value, setValue, options}: ICustomInput) => {
         onChange={(evt) => setValue(evt.target.value)}
       />
       <datalist id='product'>
-        {options.map((elem) => (
-          <option key={`product-${elem.id}`} value={elem.name}>
-            {elem.name}
+        {options.map((elem: ISelect) => (
+          <option key={`product-${elem.id}`} value={elem.label}>
+            {elem.label}
           </option>
         ))}
       </datalist>

@@ -27,8 +27,8 @@ export const SelectInput = ({
         >
           <option value=''>{optionMessageDefault}</option>
           {options.map((elem, index) => (
-            <option key={`${elem.title}-${elem.id}`} value={elem.title}>
-              {elem.title}
+            <option key={index} value={elem.label}>
+              {elem.label}
             </option>
           ))}
         </select>
