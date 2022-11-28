@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Container,
   Header,
@@ -18,15 +18,21 @@ import {useDetailsShoppingList} from '../../hook/useDetailsShoppingList';
 const {paper} = ICONS;
 
 export default function ShoppingListInfo() {
+  const [domLoaded, setDomLoaded] = useState(false);
+
   const router = useRouter();
 
   const {id}: any = router.query;
 
   const {list, loading} = useDetailsShoppingList(id);
 
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
+
   return (
     <>
-      {loading ? (
+      {domLoaded && loading ? (
         <></>
       ) : (
         <div

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {useEffect, useState} from 'react';
 
 import {Container, ShoppingList, CardCreateShoppingList} from '../components';
 
@@ -6,6 +7,12 @@ const WIDTH_LOGO = 290;
 const HEIGHT_LOGO = 55;
 
 const Home = () => {
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
+
   return (
     <Container
       direction='column'
@@ -22,8 +29,7 @@ const Home = () => {
           height={HEIGHT_LOGO}
         />
       </div>
-
-      <ShoppingList />
+      {domLoaded && <ShoppingList />}
 
       <CardCreateShoppingList />
     </Container>

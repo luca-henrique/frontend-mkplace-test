@@ -9,7 +9,7 @@ export const useShoppingListData = () => {
   const getList = async () => {
     const {dataList, loading} = await getListCategoryProductService();
     setData(dataList);
-    setLoading(loading);
+    setLoading(false);
   };
 
   useEffect(() => {

@@ -13,8 +13,9 @@ export class ProductService {
     return data;
   }
 
-  postUploadImg(data: string) {
+  async postUploadImg(data: any) {
     let url = `${this.urlPath}/upload`;
+    console.log(data);
     return axios.post(url, data).then((response) => response.data);
   }
 }

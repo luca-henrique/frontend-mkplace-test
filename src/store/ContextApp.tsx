@@ -33,11 +33,15 @@ export interface IState extends ShoppingList {
   setFile: (value: null | ArrayBuffer | string) => void;
 }
 
+//@ts-ignore
 export const ContextApp = React.createContext<IState>(initialValue);
 
 export const AppProvider = ({children}: any) => {
+  //@ts-ignore
   const [list, setList] = useState<ShoppingList>(initialValue.list);
-  const [file, setFile] = useState<null | string | ArrayBuffer>(
+
+  const [file, setFile] = useState<IFile>(
+    //@ts-ignore
     initialValue.file,
   );
 

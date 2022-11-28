@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 import {
@@ -18,12 +18,14 @@ import useLocalStorage from '../../hook/useLocalStorage';
 const {paper} = ICONS;
 const shoppingListService = new ListShoppingService();
 
+import {splitCategories} from '../../utils/product';
+
 export default function ShoppingList() {
   const router = useRouter();
 
   const [productList, setProductList] = useLocalStorage('productList', '');
 
-  console.log(productList);
+  console.log();
 
   const onSubmitSaveList = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -36,6 +38,11 @@ export default function ShoppingList() {
         setProductList({});
       })
       .catch(() => {});
+  };
+
+  const addNewProduct = (event) => {
+    event.preventDefault();
+    router.push('/lista/criar');
   };
 
   return (
@@ -70,7 +77,10 @@ export default function ShoppingList() {
 
           <Container margin='0px 0px 0px 12px'>
             <Title>Lista</Title>
-            <InformationList>1 categorias / 1 itens</InformationList>
+            <InformationList>
+              {splitCategories(productList).length} categorias /{' '}
+              {productList.length} itens
+            </InformationList>
           </Container>
         </Container>
         <Separator />
@@ -81,10 +91,7 @@ export default function ShoppingList() {
       <div className='mt-3' />
 
       <div>
-        <button
-          className='btn-secondary'
-          onClick={() => router.push('/lista/criar')}
-        >
+        <button className='btn-secondary' onClick={(e) => addNewProduct(e)}>
           Adicionar novo item
         </button>
 
