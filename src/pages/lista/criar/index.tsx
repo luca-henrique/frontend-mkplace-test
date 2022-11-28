@@ -81,7 +81,8 @@ export default function CreateShoppingList() {
           setOption={setCategoryTitle}
           options={listCategory}
           optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
-          title='Selecione categoria do produto'
+          title='Selecione categoria do produto *'
+          required
         />
 
         <div className='mt-3' />
@@ -91,15 +92,19 @@ export default function CreateShoppingList() {
           setOption={setSubCategory}
           options={listSubCategory}
           optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
-          title='Selecione uma subcategoria do produto'
+          title='Selecione uma subcategoria do produto *'
+          required
         />
 
         <Separator />
 
-        {
+        <CustomInput
+          value={name}
+          setValue={setName}
           //@ts-ignore
-          <CustomInput value={name} setValue={setName} options={listProducts} />
-        }
+          options={listProducts}
+          required
+        />
 
         <Separator />
 
@@ -107,8 +112,8 @@ export default function CreateShoppingList() {
           option={type}
           setOption={setType}
           options={mockUnitType}
-          optionMessageDefault='Selecione a unidade do produto'
-          title='Tipo'
+          optionMessageDefault='Selecione a unidade do produto *'
+          title='Tipo *'
         />
         <div className='mt-3' />
         <div className='d-flex flex-row col-12 justify-content-between'>
@@ -117,11 +122,11 @@ export default function CreateShoppingList() {
           </div>
 
           <div className='d-flex flex-column col-5'>
-            <PriceInput setValue={setPrice} />
+            <PriceInput setValue={setPrice} required />
           </div>
         </div>
         <div className='mt-3' />
-        <Upload accept='.png,.jpg,.jpeg' />
+        <Upload accept='.png,.jpg,.jpeg' required />
         <div className='mt-3' />
         <button
           className='btn-primary'

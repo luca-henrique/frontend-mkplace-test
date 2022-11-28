@@ -8,7 +8,7 @@ interface ICountInput {
 export const CountInput = ({value, setValue}: ICountInput) => {
   return (
     <>
-      <label className='text-i'>Quantidade</label>
+      <label className='text-i'>Quantidade *</label>
       <div className='d-flex col-12 mt-2 input justify-content-between'>
         <Minus
           className='cursor-pointer'

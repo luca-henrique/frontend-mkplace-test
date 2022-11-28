@@ -4,6 +4,7 @@ import {ContextApp} from '../../../store/ContextApp';
 
 interface IUpload {
   accept: string;
+  required?: boolean;
 }
 
 export const Upload = (props: IUpload) => {
@@ -39,6 +40,7 @@ export const Upload = (props: IUpload) => {
         type='file'
         name='upload'
         id='upload'
+        required={props.required}
         style={{display: 'none'}}
         accept={props.accept}
         onChange={(evt: any) => getImgUrl(evt.target.files[0])}

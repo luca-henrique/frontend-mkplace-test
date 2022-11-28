@@ -12,12 +12,18 @@ interface ICustomInput {
   value: string;
   setValue: (value: string) => void;
   options: ISelect[];
+  required?: boolean;
 }
 
-export const CustomInput = ({value, setValue, options}: ICustomInput) => {
+export const CustomInput = ({
+  value,
+  setValue,
+  options,
+  required,
+}: ICustomInput) => {
   return (
     <div className='d-flex flex-column'>
-      <label className='text-i'>Nome do produto</label>
+      <label className='text-i'>Nome do produto *</label>
       <input
         className='mt-2 input'
         type='text'
@@ -25,6 +31,7 @@ export const CustomInput = ({value, setValue, options}: ICustomInput) => {
         list='product'
         value={value}
         onChange={(evt) => setValue(evt.target.value)}
+        required={required}
       />
       <datalist id='product'>
         {options.map((elem: ISelect) => (

@@ -6,6 +6,7 @@ interface ISelectInput {
   options: IOption[];
   option: string;
   setOption: (value: string) => void;
+  required?: boolean;
 }
 
 export const SelectInput = ({
@@ -14,6 +15,7 @@ export const SelectInput = ({
   setOption,
   option,
   optionMessageDefault,
+  required,
 }: ISelectInput) => {
   return (
     <div className='d-flex flex-column'>
@@ -23,6 +25,7 @@ export const SelectInput = ({
           name='categoria'
           className='col-12'
           value={option}
+          required={required}
           onChange={(evt) => setOption(evt.target.value)}
         >
           <option value=''>{optionMessageDefault}</option>
