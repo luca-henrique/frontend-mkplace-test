@@ -4,11 +4,19 @@ import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import '../styles/main.scss';
-import React from 'react';
+import React, {useReducer} from 'react';
 
-import {AppProvider} from '../store/ContextApp';
+import {shoppingListReducer} from '../store/reducer';
+import {initialShoppingListState} from '../store/state';
+
+import {ShoppingListContext} from '../store/context';
 
 function MyApp({Component, pageProps}: AppProps) {
+  const [state, dispatch] = useReducer(
+    shoppingListReducer,
+    initialShoppingListState,
+  );
+
   return (
     <>
       <Head>
@@ -19,9 +27,9 @@ function MyApp({Component, pageProps}: AppProps) {
           content='width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0'
         />
       </Head>
-      <AppProvider>
+      <ShoppingListContext.Provider value={{state, dispatch}}>
         <Component {...pageProps} />
-      </AppProvider>
+      </ShoppingListContext.Provider>
     </>
   );
 }

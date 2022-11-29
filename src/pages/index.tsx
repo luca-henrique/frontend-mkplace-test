@@ -2,12 +2,15 @@ import Image from 'next/image';
 import {useEffect, useState} from 'react';
 
 import {Container, ShoppingList, CardCreateShoppingList} from '../components';
+import {useReducerHook} from '../hook/useReducerHooks';
 
 const WIDTH_LOGO = 290;
 const HEIGHT_LOGO = 55;
 
 const Home = () => {
   const [domLoaded, setDomLoaded] = useState(false);
+
+  const {state} = useReducerHook();
 
   useEffect(() => {
     setDomLoaded(true);

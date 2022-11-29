@@ -1,7 +1,3 @@
-export interface TypeProduct {
-  type: string;
-}
-
 export interface IProduct {
   categoryTitle: string;
   subCategory?: string;
@@ -17,10 +13,15 @@ export interface ShoppingList {
   products?: IProduct[];
   qtdeCategoria?: number;
   qtdeItens?: number;
-  total?: number | string;
+  priceTotalShoppingList?: number | string;
+  loading?: boolean;
 }
 
-export interface IOption {
+export interface ShoppingListState {
+  lists: ShoppingList[];
+}
+
+export interface ISelectOption {
   id: number;
   label?: string;
 }
