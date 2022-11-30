@@ -5,7 +5,7 @@ export interface IProduct {
   quantity: number;
   type: string;
   price: number;
-  imageUrl: string | ArrayBuffer | null;
+  imageUrl: string;
 }
 
 export interface ShoppingList {
@@ -19,6 +19,7 @@ export interface ShoppingList {
 export interface ShoppingListState {
   lists: ShoppingList[];
   loading?: boolean;
+  shoppingList: ShoppingList;
 }
 
 export interface ISelectOption {

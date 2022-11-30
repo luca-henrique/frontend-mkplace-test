@@ -4,20 +4,9 @@ import {ProductInformation, ProductName} from './style';
 
 import {Container} from '../..';
 
-interface IProductItem {
-  imageUrl: string;
-  name: string;
-  price: number;
-  type: string;
-  key?: number;
-}
+import {IProduct} from '../../../types';
 
-export const ListProductItem = ({
-  imageUrl,
-  name,
-  price,
-  type,
-}: IProductItem) => {
+export const ListProductItem = ({imageUrl, name, price, type}: IProduct) => {
   return (
     <Container
       alignItems='center'

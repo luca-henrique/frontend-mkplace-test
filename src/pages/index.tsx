@@ -7,12 +7,6 @@ const WIDTH_LOGO = 290;
 const HEIGHT_LOGO = 55;
 
 const Home = () => {
-  const [domLoaded, setDomLoaded] = useState(false);
-
-  useEffect(() => {
-    setDomLoaded(true);
-  }, []);
-
   return (
     <Container
       direction='column'
@@ -29,7 +23,7 @@ const Home = () => {
           height={HEIGHT_LOGO}
         />
       </div>
-      {domLoaded && <ShoppingList />}
+      <ShoppingList />
 
       <CardCreateShoppingList />
     </Container>
