@@ -13,12 +13,12 @@ export interface ShoppingList {
   products?: IProduct[];
   qtdeCategoria?: number;
   qtdeItens?: number;
-  priceTotalShoppingList?: number | string;
-  loading?: boolean;
+  total?: number | string;
 }
 
 export interface ShoppingListState {
   lists: ShoppingList[];
+  loading?: boolean;
 }
 
 export interface ISelectOption {

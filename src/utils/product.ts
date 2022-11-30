@@ -82,7 +82,7 @@ export const searchProductShoppingListById = (
   return data;
 };
 
-const getTotalProducts = (newArray: []) => {
+export const getTotalProducts = (newArray: []) => {
   let soma = 0;
 
   newArray.forEach((elem: any) => {

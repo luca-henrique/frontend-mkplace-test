@@ -1,12 +1,17 @@
 import {ShoppingListItem} from '../../';
+import {useReducerHook} from '../../../hook/useReducerHooks';
 
-import {useShoppingListData} from '../../../hook/useShoppingListData';
+import {useGetShoppingListData} from '../../../hook/useGetShoppingListData';
 
 export const ShoppingList = () => {
-  const {data, loading} = useShoppingListData();
+  const {
+    state: {lists, loading},
+  } = useReducerHook();
 
-  const renderList = data.map((shoppingListItem, index) => (
-    <ShoppingListItem key={index} item={shoppingListItem} />
+  useGetShoppingListData();
+
+  const renderList = lists.map((shoppingListItem, index) => (
+    <ShoppingListItem key={index} {...shoppingListItem} />
   ));
 
   return <>{!loading && renderList} </>;

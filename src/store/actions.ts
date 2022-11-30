@@ -1,19 +1,12 @@
-import {ShoppingListState} from '../types';
+import {ShoppingList} from '../types';
 
 export enum ActionType {
-  READ_SHOPPING_LIST_REQUEST,
-  READ_SHOPPING_LIST_SUCCESS,
+  READ_SHOPPING_LIST,
 }
 
-export interface ReadShoppingListRequest {
-  type: ActionType.READ_SHOPPING_LIST_REQUEST;
+export interface ReadShoppingList {
+  type: ActionType.READ_SHOPPING_LIST;
+  payload: ShoppingList[];
 }
 
-export interface ReadShoppingListSuccess {
-  type: ActionType.READ_SHOPPING_LIST_SUCCESS;
-  payload: ShoppingListState;
-}
-
-export type ShoppingListActions =
-  | ReadShoppingListSuccess
-  | ReadShoppingListRequest;
+export type ShoppingListActions = ReadShoppingList;

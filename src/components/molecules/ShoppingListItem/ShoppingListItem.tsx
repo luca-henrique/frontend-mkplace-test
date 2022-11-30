@@ -6,22 +6,15 @@ import {ICONS} from '../../../assets';
 
 import {Title, InformationList} from './style';
 
+import {ShoppingList} from '../../../types';
+
 const {paper, arrowRight} = ICONS;
 
-interface IShoppingListItem {
-  key?: any;
-  id: number;
-  qtdeCategoria: number;
-  qtdeItens: number;
-}
-
-interface Shopping {
-  item: IShoppingListItem;
-}
-
-export const ShoppingListItem = ({item}: Shopping) => {
-  const {id, qtdeCategoria, qtdeItens} = item;
-
+export const ShoppingListItem = ({
+  id,
+  qtdeCategoria,
+  qtdeItens,
+}: ShoppingList) => {
   return (
     <Link href={`/lista/${id}`}>
       <Container
