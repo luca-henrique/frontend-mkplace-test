@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
 
 import {Container, ShoppingList, CardCreateShoppingList} from '../components';
 

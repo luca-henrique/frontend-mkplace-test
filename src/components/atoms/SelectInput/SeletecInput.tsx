@@ -1,12 +1,13 @@
-import {IOption} from '../../../types';
+import {ISelectOption} from '../../../types';
 
 interface ISelectInput {
   title: string;
   optionMessageDefault: string;
-  options: IOption[];
+  options: ISelectOption[];
   option: string;
   setOption: (value: string) => void;
   required?: boolean;
+  name?: string;
 }
 
 export const SelectInput = ({
@@ -16,17 +17,18 @@ export const SelectInput = ({
   option,
   optionMessageDefault,
   required,
+  name,
 }: ISelectInput) => {
   return (
     <div className='d-flex flex-column'>
       <label className='text-i'>{title}</label>
       <div className='select mt-2'>
         <select
-          name='categoria'
+          name={name}
           className='col-12'
           value={option}
           required={required}
-          onChange={(evt) => setOption(evt.target.value)}
+          onChange={(evt) => setOption(evt)}
         >
           <option value=''>{optionMessageDefault}</option>
           {options.map((elem, index) => (

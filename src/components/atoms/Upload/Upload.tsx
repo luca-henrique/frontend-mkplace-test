@@ -1,19 +1,16 @@
-import {useContext, useState} from 'react';
-import {ContextApp} from '../../../store/ContextApp';
+import {useState} from 'react';
 
 import {FileContainer} from '../../';
-
-import {ProductService} from '../../../service/ProductService';
-
-const uploadImageProduct = new ProductService();
 
 interface IUpload {
   accept: string;
   required?: boolean;
+  name?: string;
+  onSubmit?: any;
+  file?: any;
 }
 
-export const Upload = (props: IUpload) => {
-  const {file, setFile} = useContext(ContextApp);
+export const Upload = ({accept, file, onSubmit}: IUpload) => {
   const [fileName, setFileName] = useState<string | null>(null);
 
   const getImgUrl = async (img: File) => {
@@ -21,29 +18,12 @@ export const Upload = (props: IUpload) => {
       setFileName(img.name);
       let url = new FileReader();
       url.readAsDataURL(img);
-      url.onload = (e: any) => {
-        let textImg = url.result;
-        setFile(textImg);
-      };
     }
-  };
-
-  const handleSubmission = (img: any) => {
-    const formData = new FormData();
-
-    formData.append('files', img);
-
-    fetch('http://localhost:3000/api/upload', {
-      method: 'POST',
-      body: formData,
-    }).then((response) => {
-      console.log(response);
-    });
   };
 
   return (
     <label
-      htmlFor='upload'
+      htmlFor='imageUrl'
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -56,12 +36,15 @@ export const Upload = (props: IUpload) => {
     >
       <input
         type='file'
-        name='upload'
-        id='upload'
-        required={props.required}
+        name='imageUrl'
+        id='imageUrl'
+        required
         style={{display: 'none'}}
-        accept={props.accept}
-        onChange={(evt: any) => getImgUrl(evt.target.files[0])}
+        accept={accept}
+        onChange={(evt: any) => {
+          getImgUrl(evt.target.files[0]);
+          onSubmit(evt);
+        }}
       />
       <FileContainer file={file} fileName={fileName} />
     </label>

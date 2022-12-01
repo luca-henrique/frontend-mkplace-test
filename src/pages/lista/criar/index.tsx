@@ -37,7 +37,7 @@ export default function ShoppingList() {
       .catch(() => {});
   };
 
-  const addNewProduct = (event) => {
+  const addNewProduct = (event: React.SyntheticEvent) => {
     event.preventDefault();
     router.push('/produto/adicionar');
   };
@@ -87,17 +87,15 @@ export default function ShoppingList() {
 
       <div className='mt-3' />
 
-      <div>
-        <button className='btn-secondary' onClick={(e) => addNewProduct(e)}>
-          Adicionar novo item
-        </button>
+      <button className='btn-secondary' onClick={(e) => addNewProduct(e)}>
+        Adicionar novo item
+      </button>
 
-        <div className='mt-3' />
+      <div className='mt-3' />
 
-        <button className='btn-primary' type='submit'>
-          Concluir lista
-        </button>
-      </div>
+      <button className='btn-primary' type='submit'>
+        Concluir lista
+      </button>
     </form>
   );
 }

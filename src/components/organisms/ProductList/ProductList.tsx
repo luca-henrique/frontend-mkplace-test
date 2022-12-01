@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {ListProductItem, Container} from '../../';
 import {useReducerHook} from '../../../hook/useReducerHooks';
 
@@ -12,11 +10,11 @@ export const ProductList = () => {
     },
   } = useReducerHook();
 
-  return (
-    <Container>
-      {products?.map((productItem: IProduct, index: number) => {
-        return <ListProductItem key={index} {...productItem} />;
-      })}
-    </Container>
+  const renderProducts = products?.map(
+    (productItem: IProduct, index: number) => {
+      return <ListProductItem key={index} {...productItem} />;
+    },
   );
+
+  return <Container>{renderProducts}</Container>;
 };

@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useReducer} from 'react';
 import {
   Header,
   Upload,
@@ -13,10 +13,15 @@ import {
 import {useRouter} from 'next/router';
 
 import {useInformationProduct} from '../../../hook/useInformationProduct';
-import {ContextApp} from '../../../store/ContextApp';
-import {IProduct} from '../../../types';
 
-import useLocalStorage from '../../../hook/useLocalStorage';
+import {
+  formReducer,
+  initialState,
+  changerFieldForm,
+  resetFields,
+  incrementQuantityForm,
+  decrementQuantityForm,
+} from '../../../hook/useReducerFormProduct';
 
 const mockUnitType = [
   {id: 1, label: 'kg'},
@@ -24,49 +29,31 @@ const mockUnitType = [
 ];
 
 export default function AddProductShoppingList() {
-  const [categoryTitle, setCategoryTitle] = useState(String);
-  const [subCategory, setSubCategory] = useState(String);
-  const [name, setName] = useState(String);
-  const [type, setType] = useState('unit');
-  const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const [state, dispatch] = useReducer(formReducer, initialState);
 
-  const [productList, setProductList] = useLocalStorage('productList', '');
-
-  const {file, setFile} = useContext(ContextApp);
+  const {categoryTitle, subCategory, name, type, price, quantity, imageUrl} =
+    state;
 
   const router = useRouter();
 
   const {listCategory, listProducts, listSubCategory} = useInformationProduct();
 
-  const clearForm = () => {
-    setCategoryTitle('');
-    setSubCategory('');
-    setName('');
-    setType('unit');
-    setPrice(0);
-    setQuantity(1);
-    setFile(null);
+  const handleFormField = (event: any) => {
+    const {name, value} = event.target;
+    dispatch(changerFieldForm({field: name, value}));
+  };
+
+  const handleFormFieldImage = (event: any) => {
+    const {name, files} = event.target;
+    dispatch(changerFieldForm({field: name, value: files[0]}));
   };
 
   const onSubmitItem = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    let arrayProducts: IProduct[] = productList.length ? productList : [];
+    //router.push('/lista');
 
-    arrayProducts?.push({
-      categoryTitle: categoryTitle,
-      name: name,
-      type: type,
-      price: price,
-      quantity: quantity,
-      imageUrl: file,
-    });
-
-    setProductList(arrayProducts);
-    router.push('/lista');
-
-    clearForm();
+    dispatch(resetFields());
   };
 
   return (
@@ -77,8 +64,9 @@ export default function AddProductShoppingList() {
         <div className='mt-4' />
 
         <SelectInput
+          name='categoryTitle'
           option={categoryTitle}
-          setOption={setCategoryTitle}
+          setOption={handleFormField}
           options={listCategory}
           optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
           title='Selecione categoria do produto *'
@@ -88,8 +76,10 @@ export default function AddProductShoppingList() {
         <div className='mt-3' />
 
         <SelectInput
+          name='subCategory'
+          //@ts-ignore
           option={subCategory}
-          setOption={setSubCategory}
+          setOption={handleFormField}
           options={listSubCategory}
           optionMessageDefault='Pesquise por uma categoria. Ex. Enlatados'
           title='Selecione uma subcategoria do produto *'
@@ -99,9 +89,9 @@ export default function AddProductShoppingList() {
         <Separator />
 
         <CustomInput
+          name='name'
           value={name}
-          setValue={setName}
-          //@ts-ignore
+          setValue={handleFormField}
           options={listProducts}
           required
         />
@@ -109,8 +99,9 @@ export default function AddProductShoppingList() {
         <Separator />
 
         <SelectInput
+          name='type'
           option={type}
-          setOption={setType}
+          setOption={handleFormField}
           options={mockUnitType}
           optionMessageDefault='Selecione a unidade do produto *'
           title='Tipo *'
@@ -118,15 +109,30 @@ export default function AddProductShoppingList() {
         <div className='mt-3' />
         <div className='d-flex flex-row col-12 justify-content-between'>
           <div className='d-flex flex-column col-5'>
-            <CountInput value={quantity} setValue={setQuantity} />
+            <CountInput
+              value={quantity}
+              setValue={handleFormField}
+              increment={() => dispatch(incrementQuantityForm())}
+              decrement={() => dispatch(decrementQuantityForm())}
+            />
           </div>
 
           <div className='d-flex flex-column col-5'>
-            <PriceInput setValue={setPrice} required />
+            <PriceInput
+              setValue={handleFormField}
+              required
+              name='price'
+              value={price}
+            />
           </div>
         </div>
         <div className='mt-3' />
-        <Upload accept='.png,.jpg,.jpeg' required />
+        <Upload
+          accept='.png,.jpg,.jpeg'
+          required
+          onSubmit={handleFormFieldImage}
+          file={imageUrl}
+        />
         <div className='mt-3' />
         <button
           className='btn-primary'

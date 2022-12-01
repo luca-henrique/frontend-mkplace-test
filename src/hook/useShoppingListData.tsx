@@ -7,7 +7,7 @@ export const useShoppingListData = () => {
   const [loading, setLoading] = useState(true);
 
   const getList = async () => {
-    const {dataList, loading} = await getListCategoryProductService();
+    const {dataList} = await getListCategoryProductService();
     setData(dataList);
     setLoading(false);
   };
