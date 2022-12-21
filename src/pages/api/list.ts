@@ -4,6 +4,47 @@ const myCache = new NodeCache();
 
 import {cors, runMiddleware} from './cors';
 
+const mockList = {
+  id: 610743,
+  products: [
+    {
+      categoryTitle: 'Alimentos e Bebidas',
+      name: 'Leite Longavida',
+      quantity: 2,
+      type: 'unit',
+      price: 4.9,
+    },
+    {
+      categoryTitle: 'Alimentos e Bebidas',
+      name: 'Milho verde',
+      quantity: 3,
+      type: 'unit',
+      price: 1.8,
+    },
+    {
+      categoryTitle: 'Alimentos e Bebidas',
+      name: 'Couve',
+      quantity: 1,
+      type: 'kg',
+      price: 7.5,
+    },
+    {
+      categoryTitle: 'Casa, Pessoas e Outros',
+      name: 'Shampoo',
+      quantity: 1,
+      type: 'unit',
+      price: 1,
+    },
+    {
+      categoryTitle: 'Casa, Pessoas e Outros',
+      name: 'Sabonete',
+      quantity: 4,
+      type: 'unit',
+      price: 1.25,
+    },
+  ],
+};
+
 type Data = {
   id: number;
   products: {
@@ -26,54 +67,14 @@ export default async function handler(
     switch (req.method) {
       case 'GET':
         if (!myCache.get('list')) {
-          myCache.set('list', [
-            {
-              id: 610743,
-              products: [
-                {
-                  categoryTitle: 'Alimentos e Bebidas',
-                  name: 'Leite Longavida',
-                  quantity: 2,
-                  type: 'unit',
-                  price: 4.9,
-                },
-                {
-                  categoryTitle: 'Alimentos e Bebidas',
-                  name: 'Milho verde',
-                  quantity: 3,
-                  type: 'unit',
-                  price: 1.8,
-                },
-                {
-                  categoryTitle: 'Alimentos e Bebidas',
-                  name: 'Couve',
-                  quantity: 1,
-                  type: 'kg',
-                  price: 7.5,
-                },
-                {
-                  categoryTitle: 'Casa, Pessoas e Outros',
-                  name: 'Shampoo',
-                  quantity: 1,
-                  type: 'unit',
-                  price: 1,
-                },
-                {
-                  categoryTitle: 'Casa, Pessoas e Outros',
-                  name: 'Sabonete',
-                  quantity: 4,
-                  type: 'unit',
-                  price: 1.25,
-                },
-              ],
-            },
-          ]);
+          myCache.set('list', [mockList]);
         }
 
-        const data: Data[] | undefined = myCache.get('list');
+        const data: Data[] | undefined = await myCache.get('list');
 
         res.status(200).json(data);
         break;
+
       case 'POST':
         if (!req?.body || req?.body?.length <= 0) {
           throw new Error('É obrigatório enviar algum produto');
@@ -131,13 +132,7 @@ export default async function handler(
           });
         });
 
-        const listCache: Data[] = myCache.get('list') || [];
-
-        listCache.push(body);
-
-        myCache.set('list', listCache);
-
-        res.status(200).json(body);
+        res.status(200).json([mockList, body]);
         break;
       default:
         throw new Error('Método inválido');

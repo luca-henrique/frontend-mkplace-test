@@ -7,13 +7,13 @@ export class CategoryService {
     this.urlPath = 'http://localhost:3000/api';
   }
 
-  getCategoty() {
-    let url = `${this.urlPath}/category`;
-    return axios.get(url).then((response) => response.data);
+  async getCategoty() {
+    const {data} = await axios.get(`${this.urlPath}/category`);
+    return data;
   }
 
-  getSubCategoty() {
-    let url = `${this.urlPath}/subcategory`;
-    return axios.get(url).then((response) => response.data);
+  async getSubCategoty() {
+    const {data} = await axios.get(`${this.urlPath}/subcategory`);
+    return data;
   }
 }

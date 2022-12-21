@@ -7,13 +7,15 @@ export class ProductService {
     this.urlPath = 'http://localhost:3000/api';
   }
 
-  getProduct() {
-    let url = `${this.urlPath}/product`;
-    return axios.get(url).then((response) => response.data);
+  async getProduct() {
+    const {data} = await axios.get(`${this.urlPath}/product`);
+
+    return data;
   }
 
-  postUploadImg(data: string) {
+  async postUploadImg(data: any) {
     let url = `${this.urlPath}/upload`;
+    console.log(data);
     return axios.post(url, data).then((response) => response.data);
   }
 }

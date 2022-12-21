@@ -8,3 +8,5 @@ export {ListProductItem} from './ListProductItem/ListProductItem';
 export {DetailProductList} from './DetailProductList/DetailProductList';
 
 export {DetailShoppingItem} from './DetailShoppingItem/DetailShoppingItem';
+
+export {FileContainer} from './FileContainer/FileContainer';

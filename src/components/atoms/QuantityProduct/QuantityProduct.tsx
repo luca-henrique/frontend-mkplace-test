@@ -1,24 +1,9 @@
 import {Minus, Plus} from 'phosphor-react';
-import {useContext} from 'react';
+
 import {useDetailsShoppingList} from '../../../hook/useDetailsShoppingList';
-import {ContextApp} from '../../../store/ContextApp';
 
-export const QuantityProduct = ({value, setValue, id}: any) => {
-  const {list, setList} = useContext(ContextApp);
+export const QuantityProduct = ({value, id}: any) => {
   const {productDecrement, productIncrement} = useDetailsShoppingList();
-
-  const decrementItem = (idx: number) => {
-    let arrayProducts = list.products;
-    arrayProducts = arrayProducts?.filter((elem, index) => idx !== index);
-
-    let dataForm = {
-      ...list,
-      products: arrayProducts,
-    };
-
-    console.log(decrementItem);
-    //setList(dataForm);
-  };
 
   return (
     <div

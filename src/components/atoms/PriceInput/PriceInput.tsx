@@ -1,23 +1,36 @@
+import {useState} from 'react';
+
 interface ICountInput {
-  value: string;
-  setValue: (value: string) => void;
+  value?: number;
+  setValue: (value: object) => void;
+  required?: boolean;
+  name?: string;
 }
 
-export const PriceInput = ({value, setValue}: ICountInput) => {
+export const PriceInput = ({setValue, required, name, value}: ICountInput) => {
+  const [price, setPrice] = useState('');
+
+  const formatPrice = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(evt);
+    setPrice(evt.target.value);
+  };
+
   return (
     <>
-      <label className='text-i'>Preço</label>
+      <label className='text-i'>Preço *</label>
       <input
+        name={name}
+        required={required}
         className='mt-2 input'
         type='text'
         placeholder='R$'
         value={value}
-        onChange={(evt) => setValue(evt.target.value)}
+        onChange={formatPrice}
         onBlur={() => {
-          if (parseInt(value) > 0) {
-            let vl = 'R$ ' + Number(value.replace(',', '.')).toFixed(2);
+          if (parseInt(price) > 0) {
+            let vl = 'R$ ' + Number(price.replace(',', '.')).toFixed(2);
             vl = vl.replace('.', ',');
-            setValue(vl);
+            setPrice(vl);
           }
         }}
       />

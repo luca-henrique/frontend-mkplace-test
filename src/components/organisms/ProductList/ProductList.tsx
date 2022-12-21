@@ -1,17 +1,20 @@
-import React from 'react';
-
 import {ListProductItem, Container} from '../../';
-import useLocalStorage from '../../../hook/useLocalStorage';
+import {useReducerHook} from '../../../hook/useReducerHooks';
+
+import {IProduct} from '../../../types';
 
 export const ProductList = () => {
-  const [productList, _] = useLocalStorage('productList', '');
+  const {
+    state: {
+      shoppingList: {products},
+    },
+  } = useReducerHook();
 
-  return (
-    <Container>
-      {productList?.map((productItem: any, index: any) => {
-        //@ts-ignore
-        return <ListProductItem key={index} {...productItem} />;
-      })}
-    </Container>
+  const renderProducts = products?.map(
+    (productItem: IProduct, index: number) => {
+      return <ListProductItem key={index} {...productItem} />;
+    },
   );
+
+  return <Container>{renderProducts}</Container>;
 };

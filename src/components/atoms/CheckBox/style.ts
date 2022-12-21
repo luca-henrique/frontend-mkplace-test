@@ -1,9 +1,5 @@
 import styled, {keyframes} from 'styled-components';
 
-interface IInput {
-  disabled: boolean;
-}
-
 export const Input = styled.input`
   height: 0;
   width: 0;
@@ -72,4 +68,9 @@ export const Indicator = styled.div`
   &::disabled {
     cursor: not-allowed;
   }
+`;
+
+export const StyledContainer = styled.div`
+  max-width: 118px;
+  margin-left: 26px;
 `;

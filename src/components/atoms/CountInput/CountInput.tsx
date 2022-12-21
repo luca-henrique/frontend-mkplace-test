@@ -3,32 +3,44 @@ import {Minus, Plus} from 'phosphor-react';
 interface ICountInput {
   value: number;
   setValue: (value: number) => void;
+  name?: string;
+  increment?: () => void;
+  decrement?: () => void;
 }
 
-export const CountInput = ({value, setValue}: ICountInput) => {
+export const CountInput = ({
+  value,
+  increment,
+  decrement,
+  setValue,
+}: ICountInput) => {
   return (
     <>
-      <label className='text-i'>Quantidade</label>
+      <label className='text-i'>Quantidade *</label>
       <div className='d-flex col-12 mt-2 input justify-content-between'>
         <Minus
           className='cursor-pointer'
           size={25}
           weight='bold'
           onClick={() => {
-            if (value > 1) setValue(value - 1);
+            //@ts-ignore
+            if (value > 1) decrement();
           }}
         />
         <input
           className='col-3 input-qtde'
           type='text'
+          name='quantity'
           value={value}
-          onChange={(evt) => setValue(Number(evt.target.value))}
+          //@ts-ignore
+          onChange={(evt) => setValue(evt)}
         />
         <Plus
           className='cursor-pointer'
           size={25}
           weight='bold'
-          onClick={() => setValue(value + 1)}
+          //@ts-ignore
+          onClick={() => increment()}
         />
       </div>
     </>

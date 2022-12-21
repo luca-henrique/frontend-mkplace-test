@@ -2,12 +2,22 @@ import React, {useState} from 'react';
 
 import {ShoppingList} from '../types';
 
-export const initialValue = {
+import {IShoppingList} from '../types/product.types';
+
+interface Props {
+  list: IShoppingList;
+  setList: (obj: IShoppingList) => void;
+  file?: null;
+  setFile?: (file: string) => void;
+}
+
+export const initialValue: Props = {
   list: {
     id: 0,
     products: [],
     qtdeCategoria: 0,
     qtdeItens: 0,
+    total: 0,
   },
   setList: () => {},
   file: null,
@@ -23,11 +33,15 @@ export interface IState extends ShoppingList {
   setFile: (value: null | ArrayBuffer | string) => void;
 }
 
+//@ts-ignore
 export const ContextApp = React.createContext<IState>(initialValue);
 
 export const AppProvider = ({children}: any) => {
+  //@ts-ignore
   const [list, setList] = useState<ShoppingList>(initialValue.list);
-  const [file, setFile] = useState<null | string | ArrayBuffer>(
+
+  const [file, setFile] = useState<IFile>(
+    //@ts-ignore
     initialValue.file,
   );
 

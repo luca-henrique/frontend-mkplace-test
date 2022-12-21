@@ -1,14 +1,11 @@
-export interface TypeProduct {
-  type: string;
-}
-
 export interface IProduct {
   categoryTitle: string;
+  subCategory?: string;
   name: string;
   quantity: number;
   type: string;
   price: number;
-  imageUrl: string | ArrayBuffer | null;
+  imageUrl: string;
 }
 
 export interface ShoppingList {
@@ -19,8 +16,13 @@ export interface ShoppingList {
   total?: number | string;
 }
 
-export interface IOption {
+export interface ShoppingListState {
+  lists: ShoppingList[];
+  loading?: boolean;
+  shoppingList: ShoppingList;
+}
+
+export interface ISelectOption {
   id: number;
-  title?: string;
-  name?: string;
+  label?: string;
 }

@@ -4,20 +4,9 @@ import {ProductInformation, ProductName} from './style';
 
 import {Container} from '../..';
 
-interface IProductItem {
-  imageUrl: string;
-  name: string;
-  price: string | number;
-  type: string;
-  key?: number;
-}
+import {IProduct} from '../../../types';
 
-export const ListProductItem = ({
-  imageUrl,
-  name,
-  price,
-  type,
-}: IProductItem) => {
+export const ListProductItem = ({imageUrl, name, price, type}: IProduct) => {
   return (
     <Container
       alignItems='center'
@@ -39,7 +28,7 @@ export const ListProductItem = ({
       </Container>
 
       <ProductInformation>
-        {price} / {type}
+        R$ {price} / {type}
       </ProductInformation>
     </Container>
   );

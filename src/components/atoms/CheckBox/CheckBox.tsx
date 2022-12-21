@@ -1,9 +1,11 @@
 import React from 'react';
 import {ProductNameList} from '..';
 
-import {Label, Input, Indicator} from './style';
+import {Label, Input, Indicator, StyledContainer} from './style';
 
-export function Checkbox({
+import {testId} from './test-id';
+
+export const Checkbox = ({
   value,
   checked,
   onChange,
@@ -11,21 +13,21 @@ export function Checkbox({
   id,
   label,
   disabled,
-}: any) {
+}: any) => {
   return (
     <Label htmlFor={id}>
-      <div
-        style={{
-          maxWidth: '118px',
-          marginLeft: '26px',
-        }}
-      >
-        <ProductNameList style={{marginLeft: '16px'}} checked={checked}>
+      <StyledContainer>
+        <ProductNameList
+          style={{marginLeft: '16px'}}
+          data-testid={testId.label}
+          checked={checked}
+        >
           {label}
         </ProductNameList>
-      </div>
+      </StyledContainer>
       <Input
         id={id}
+        data-testid={testId.input}
         type='checkbox'
         name={name}
         value={value}
@@ -36,4 +38,4 @@ export function Checkbox({
       <Indicator />
     </Label>
   );
-}
+};
